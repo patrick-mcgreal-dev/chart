@@ -91,14 +91,14 @@ function initControlRouter(): void {
     if (x < 0) {
       x = 0;
     } 
-    else if (x > assets.map.width - cnv.width) {
-      x = assets.map.width - cnv.width;
+    else if (x > assets.map.width - (cnv.width / z)) {
+      x = assets.map.width - (cnv.width / z);
     }
     y += yv;
     if (y < 0) {
       y = 0;
-    } else if (y > assets.map.height - cnv.height) {
-      y = assets.map.height - cnv.height;
+    } else if (y > assets.map.height - (cnv.height / z)) {
+      y = assets.map.height - (cnv.height / z);
     }
   }
 
