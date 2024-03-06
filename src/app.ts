@@ -160,13 +160,14 @@ function chart_activate(): void {
 }
 
 function chart_deactivate(): void {
+  
+  cr.setControlMap("menu");
 
   for (let event of chartEvents) {
     event.element.removeEventListener(event.listener, event.fn);
   }
 
   running = false;
-  cr.setControlMap("menu");
 
 }
 
