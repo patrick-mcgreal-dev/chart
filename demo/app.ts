@@ -34,13 +34,14 @@ function initCanvas(): void {
   cnv.style.width = `${W}px`;
   cnv.style.height = `${H}px`;
 
-  const offscreen = cnv.transferControlToOffscreen();
+  const offscreenCnv = cnv.transferControlToOffscreen();
 
   cnvWorker = new Worker("cnv-worker.js");
   cnvWorker.postMessage({
     msg: "init",
+    offscreenCnv: offscreenCnv,
     assets: assets,
-  }, [ offscreen ]);
+  }, [ offscreenCnv ]);
 
 }
 

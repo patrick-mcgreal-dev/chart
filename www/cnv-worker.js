@@ -1,11 +1,15 @@
+let ctx;
 let assets;
 
 function init(data) {
+  ctx = data.offscreenCnv.getContext("2d");
   assets = data.assets;
 }
 
 function draw() {
-  console.log("draw");
+  ctx.fillStyle = "white";
+  ctx.fillRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+  ctx.drawImage(assets.player, 0, 0, assets.player.width, assets.player.height);
 }
 
 onmessage = (evt) => {
