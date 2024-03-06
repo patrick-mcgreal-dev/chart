@@ -57,7 +57,7 @@ export const get = () : API => {
         e.preventDefault();
       }
       
-      keysPressed = keysPressed.filter(k => k.includes("*"));
+      keysPressed = keysPressed.filter(k => k[0] == "*");
   
     }
   
