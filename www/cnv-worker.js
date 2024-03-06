@@ -7,9 +7,7 @@ function init(data) {
 }
 
 function draw(data) {
-  ctx.fillStyle = "white";
-  ctx.fillRect(0, 0, ctx.canvas.width, ctx.canvas.height);
-  ctx.drawImage(assets.player, data.p.x, data.p.y, assets.player.width, assets.player.height);
+  ctx.drawImage(assets.map, data.x, data.y, assets.map.width, assets.map.height);
 }
 
 onmessage = (evt) => {

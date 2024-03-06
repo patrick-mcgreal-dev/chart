@@ -5,8 +5,9 @@ let cnvWorker: Worker;
 
 let x = 0;
 let y = 0;
-let v = 10;
-let gameRunning: boolean = false;
+let v = 25;
+
+let running: boolean = false;
 
 (async () => {
   await loadAssets();
@@ -16,7 +17,9 @@ let gameRunning: boolean = false;
 
 async function loadAssets(): Promise<void> {
 
-  const assetPaths = [];
+  const assetPaths = [
+    "map",
+  ];
 
   for (let path of assetPaths) {
     const res = await fetch(`assets/${path}.png`);
@@ -54,8 +57,8 @@ function initControlRouter(): void {
   const metaControls = {
 
     "Escape": () => {
-      gameRunning = !gameRunning;
-      if (gameRunning) {
+      running = !running;
+      if (running) {
         window.requestAnimationFrame(drawFrame);
       }
     },
@@ -87,7 +90,7 @@ function drawFrame(): void {
     x: x, y: y,
   });
 
-  if (gameRunning) {
+  if (running) {
     window.requestAnimationFrame(drawFrame); 
   }
 
