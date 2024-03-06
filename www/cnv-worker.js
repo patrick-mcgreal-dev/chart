@@ -6,15 +6,15 @@ function init(data) {
   assets = data.assets;
 }
 
-function draw() {
+function draw(data) {
   ctx.fillStyle = "white";
   ctx.fillRect(0, 0, ctx.canvas.width, ctx.canvas.height);
-  ctx.drawImage(assets.player, 0, 0, assets.player.width, assets.player.height);
+  ctx.drawImage(assets.player, data.px, data.py, assets.player.width, assets.player.height);
 }
 
 onmessage = (evt) => {
   switch (evt.data.msg) {
-    case "draw": draw(); break;
+    case "draw": draw(evt.data); break;
     case "init": init(evt.data); break;
   }
 };

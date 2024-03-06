@@ -2,7 +2,12 @@ import * as ControlRouter from "../src/control-router";
 
 const assets: { [key: string]: ImageBitmap } = {};
 let cnvWorker: Worker;
+
 let gameRunning: boolean = false;
+
+let px = 0;
+let py = 0;
+let v = 5 * window.devicePixelRatio;
 
 (async () => {
   await loadAssets();
@@ -63,16 +68,16 @@ function initControlRouter(): void {
   const gameControls = {
 
     "ArrowUp": () => {
-      console.log("up");
+      py -= v;
     },
     "ArrowDown": () => {
-      console.log("down");
+      py += v;
     },
     "ArrowLeft": () => {
-      console.log("left");
+      px -= v;
     },
     "ArrowRight": () => {
-      console.log("right");
+      px += v;
     },
 
   };
@@ -88,7 +93,10 @@ function initControlRouter(): void {
 
 function drawFrame(): void {
 
-  cnvWorker.postMessage({ msg: "draw" });
+  cnvWorker.postMessage({ 
+    msg: "draw",
+    px: px, py: py, 
+  });
 
   if (gameRunning) {
     window.requestAnimationFrame(drawFrame); 
