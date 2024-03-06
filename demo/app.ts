@@ -67,10 +67,14 @@ function initControlRouter(): void {
 
   const chartControls = {
 
-    "ArrowUp": () => { y-= v; },
-    "ArrowDown": () => { y += v; },
-    "ArrowLeft": () => { x -= v; },
-    "ArrowRight": () => { x += v; },
+    "ArrowUp": () => { y += v; },
+    "ArrowDown": () => { y -= v; },
+    "ArrowLeft": () => { x += v; },
+    "ArrowRight": () => { x -= v; },
+    "*Space ArrowUp": () => { y += v*4; },
+    "*Space ArrowDown": () => { y -= v*4; },
+    "*Space ArrowLeft": () => { x += v*4; },
+    "*Space ArrowRight": () => { x -= v*4; },
 
   };
 
