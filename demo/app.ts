@@ -1,6 +1,8 @@
 import * as ControlRouter from "../src/control-router";
 
 const assets: { [key: string]: ImageBitmap } = {};
+
+let cnv: HTMLCanvasElement;
 let cnvWorker: Worker;
 
 let x = 0;
@@ -30,7 +32,7 @@ async function loadAssets(): Promise<void> {
 
 function initCanvas(): void {
 
-  const cnv = document.querySelector("canvas")!;
+  cnv = document.querySelector("canvas")!;
   const w = cnv.parentElement?.clientWidth!;
   const h = cnv.parentElement?.clientHeight!;
 
@@ -65,16 +67,31 @@ function initControlRouter(): void {
 
   };
 
+  function move(xv, yv) {
+    x += xv;
+    if (x > 0) {
+      x = 0;
+    } else if (Math.abs(x) > assets.map.width - cnv.width) {
+      x = -(assets.map.width - cnv.width);
+    }
+    y += yv;
+    if (y > 0) {
+      y = 0;
+    } else if (Math.abs(y) > assets.map.height - cnv.height) {
+      y = -(assets.map.height - cnv.height);
+    }
+  }
+
   const chartControls = {
 
-    "ArrowUp": () => { y += v; },
-    "ArrowDown": () => { y -= v; },
-    "ArrowLeft": () => { x += v; },
-    "ArrowRight": () => { x -= v; },
-    "*Space ArrowUp": () => { y += v*4; },
-    "*Space ArrowDown": () => { y -= v*4; },
-    "*Space ArrowLeft": () => { x += v*4; },
-    "*Space ArrowRight": () => { x -= v*4; },
+    "ArrowUp": () => { move(0, v) },
+    "ArrowDown": () => { move(0, -v) },
+    "ArrowLeft": () => { move(v, 0) },
+    "ArrowRight": () => { move(-v, 0) },
+    "*Space ArrowUp": () => { move(0, v*4) },
+    "*Space ArrowDown": () => { move(0, v*-4) },
+    "*Space ArrowLeft": () => { move(v*4, 0) },
+    "*Space ArrowRight": () => { move(v*-4, 0) },
 
   };
 
