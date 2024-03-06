@@ -30,14 +30,15 @@ async function loadAssets(): Promise<void> {
 
 function initCanvas(): void {
 
-  const W = 500;
-  const H = 300;
+  const W = 200;
+  const H = 200;
+  const SCALE = 2;
 
   const cnv = document.querySelector("canvas")!;
   cnv.width = W * window.devicePixelRatio;
   cnv.height = H * window.devicePixelRatio;
-  cnv.style.width = `${W}px`;
-  cnv.style.height = `${H}px`;
+  cnv.style.width = `${W * SCALE}px`;
+  cnv.style.height = `${H * SCALE}px`;
 
   const offscreenCnv = cnv.transferControlToOffscreen();
 
