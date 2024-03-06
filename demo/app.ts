@@ -1,13 +1,17 @@
 import * as ControlRouter from "../src/control-router";
 
+const CANVAS = {
+  w: 200, h: 200, scale: 2,
+};
+
+const PLAYER = {
+  x: 0, y: 0, v: 5 * window.devicePixelRatio,
+};
+
 const assets: { [key: string]: ImageBitmap } = {};
 let cnvWorker: Worker;
 
 let gameRunning: boolean = false;
-
-let px = 0;
-let py = 0;
-let v = 5 * window.devicePixelRatio;
 
 (async () => {
   await loadAssets();
@@ -30,15 +34,11 @@ async function loadAssets(): Promise<void> {
 
 function initCanvas(): void {
 
-  const W = 200;
-  const H = 200;
-  const SCALE = 2;
-
   const cnv = document.querySelector("canvas")!;
-  cnv.width = W * window.devicePixelRatio;
-  cnv.height = H * window.devicePixelRatio;
-  cnv.style.width = `${W * SCALE}px`;
-  cnv.style.height = `${H * SCALE}px`;
+  cnv.width = CANVAS.w * window.devicePixelRatio;
+  cnv.height = CANVAS.h * window.devicePixelRatio;
+  cnv.style.width = `${CANVAS.w * CANVAS.scale}px`;
+  cnv.style.height = `${CANVAS.h * CANVAS.scale}px`;
 
   const offscreenCnv = cnv.transferControlToOffscreen();
 
@@ -69,16 +69,16 @@ function initControlRouter(): void {
   const gameControls = {
 
     "ArrowUp": () => {
-      py -= v;
+      PLAYER.y -= PLAYER.v;
     },
     "ArrowDown": () => {
-      py += v;
+      PLAYER.y += PLAYER.v;
     },
     "ArrowLeft": () => {
-      px -= v;
+      PLAYER.x -= PLAYER.v;
     },
     "ArrowRight": () => {
-      px += v;
+      PLAYER.x += PLAYER.v;
     },
 
   };
@@ -96,7 +96,7 @@ function drawFrame(): void {
 
   cnvWorker.postMessage({ 
     msg: "draw",
-    px: px, py: py, 
+    p: PLAYER,
   });
 
   if (gameRunning) {
