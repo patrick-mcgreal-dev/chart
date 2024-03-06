@@ -113,6 +113,7 @@ function initControlRouter(): void {
     }
     x += ((cnv.width - (cnv.width / z)) / 2) - ((cnv.width - (cnv.width / lastZ)) / 2);
     y += ((cnv.height - (cnv.height / z)) / 2) - ((cnv.height - (cnv.height / lastZ)) / 2);
+    move(0, 0);
   }
 
   cr.addControlMap("menu", {
