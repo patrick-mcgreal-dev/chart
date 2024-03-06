@@ -53,7 +53,7 @@ function initControlRouter(): void {
     "Escape": () => {
       gameRunning = !gameRunning;
       if (gameRunning) {
-        window.requestAnimationFrame(gameFrame);
+        window.requestAnimationFrame(drawFrame);
       }
     },
 
@@ -85,12 +85,12 @@ function initControlRouter(): void {
 
 }
 
-function gameFrame(): void {
+function drawFrame(): void {
 
-  console.log("running");
+  cnvWorker.postMessage({ msg: "draw" });
 
   if (gameRunning) {
-    window.requestAnimationFrame(gameFrame); 
+    window.requestAnimationFrame(drawFrame); 
   }
 
 }
