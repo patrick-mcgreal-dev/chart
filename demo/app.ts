@@ -34,6 +34,11 @@ function initCanvas(): void {
 
   const offscreen = cnv.transferControlToOffscreen();
 
+  const worker = new Worker("cnv-worker.js");
+  worker.postMessage({
+    msg: "init"
+  }, [ offscreen ]);
+
 }
 
 function initControlRouter(): void {
