@@ -20,7 +20,11 @@ function init(data) {
 
 function draw(data) {
 
-  ctx.drawImage(assets.map, data.x, data.y, ctxW / data.z, ctxH / data.z, 0, 0, ctxW, ctxH);
+  ctx.drawImage(assets.map, 
+    data.x + ((ctxW - (ctxW / data.z)) / 2), data.y + ((ctxH - (ctxH / data.z)) / 2), 
+    ctxW / data.z, ctxH / data.z, 
+    0, 0, 
+    ctxW, ctxH);
 
   ctx.beginPath();
   ctx.moveTo(centerX - chSize, centerY);
