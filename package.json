@@ -1,0 +1,14 @@
+{
+  "name": "control-router",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "esbuild demo/app.ts --bundle --outdir=www --watch --servedir=www"
+  },
+  "author": "Patrick McGreal",
+  "license": "UNLICENSED",
+  "devDependencies": {
+    "esbuild": "^0.20.1"
+  }
+}
