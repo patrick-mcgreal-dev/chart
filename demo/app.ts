@@ -1,6 +1,8 @@
 import * as ControlRouter from "../src/control-router";
 
 const assets: { [key: string]: ImageBitmap } = {};
+let cnvWorker: Worker;
+let gameRunning: boolean = false;
 
 (async () => {
   await loadAssets();
@@ -34,9 +36,10 @@ function initCanvas(): void {
 
   const offscreen = cnv.transferControlToOffscreen();
 
-  const worker = new Worker("cnv-worker.js");
-  worker.postMessage({
-    msg: "init"
+  cnvWorker = new Worker("cnv-worker.js");
+  cnvWorker.postMessage({
+    msg: "init",
+    assets: assets,
   }, [ offscreen ]);
 
 }
@@ -48,7 +51,10 @@ function initControlRouter(): void {
   const metaControls = {
 
     "Escape": () => {
-      console.log("menu");
+      gameRunning = !gameRunning;
+      if (gameRunning) {
+        window.requestAnimationFrame(gameFrame);
+      }
     },
 
   };
@@ -76,5 +82,15 @@ function initControlRouter(): void {
   });
 
   cr.setControlMap("game");
+
+}
+
+function gameFrame(): void {
+
+  console.log("running");
+
+  if (gameRunning) {
+    window.requestAnimationFrame(gameFrame); 
+  }
 
 }

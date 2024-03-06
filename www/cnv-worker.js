@@ -1,15 +1,16 @@
-onmessage = (evt) => {
-  switch (evt.data.msg) {
-    case "draw": draw(); break;
-    case "init": init(); break;
-  }
-};
+let assets;
 
-
-function init() {
-  console.log("init");
+function init(data) {
+  assets = data.assets;
 }
 
 function draw() {
   console.log("draw");
 }
+
+onmessage = (evt) => {
+  switch (evt.data.msg) {
+    case "draw": draw(); break;
+    case "init": init(evt.data); break;
+  }
+};
