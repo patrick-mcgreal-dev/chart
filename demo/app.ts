@@ -1,7 +1,7 @@
 import * as ControlRouter from "../src/control-router";
 
 const assets: { [key: string]: ImageBitmap } = {};
-const chartEvents: { [key: string]: (e: MouseEvent) => void } = {};
+const chartEvents: { [key: string]: (e: Event) => void } = {};
 
 let cnv: HTMLCanvasElement;
 let cnvWorker: Worker;
@@ -100,16 +100,26 @@ function initControls(): void {
 
   let drag = false;
 
-  chartEvents.mousedown = (e: MouseEvent) => {
+  chartEvents.mousedown = (e: Event) => {
     drag = true;
   };
 
-  chartEvents.mousemove = (e: MouseEvent) => {
+  chartEvents.mousemove = (e: Event) => {
     if (!drag) return;
-    chart_move(-e.movementX * 2, -e.movementY * 2);
+    chart_move(
+      -(<MouseEvent>e).movementX * 2, 
+      -(<MouseEvent>e).movementY * 2);
   };
 
-  chartEvents.mouseup = (e: MouseEvent) => {
+  chartEvents.wheel = (e: Event) => {
+    if ((<WheelEvent>e).deltaY > 1) {
+      chart_zoom(-1);
+    } else {
+      chart_zoom(1);
+    }
+  };
+
+  chartEvents.mouseup = (e: Event) => {
     drag = false;
   };
 
@@ -121,6 +131,7 @@ function chart_activate(): void {
 
   cnv.addEventListener("mousedown", chartEvents.mousedown);
   cnv.addEventListener("mousemove", chartEvents.mousemove);
+  cnv.addEventListener("wheel", chartEvents.wheel);
   document.addEventListener("mouseup", chartEvents.mouseup);
 
   running = true;
@@ -132,6 +143,7 @@ function chart_deactivate(): void {
 
   cnv.removeEventListener("mousedown", chartEvents.mousedown);
   cnv.removeEventListener("mousemove", chartEvents.mousemove);
+  cnv.removeEventListener("wheel", chartEvents.wheel);
   document.removeEventListener("mouseup", chartEvents.mouseup);
 
   running = false;
