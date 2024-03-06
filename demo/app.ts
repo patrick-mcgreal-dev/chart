@@ -1,16 +1,11 @@
 import * as ControlRouter from "../src/control-router";
 
-const CANVAS = {
-  w: 200, h: 200, scale: 2,
-};
-
-const PLAYER = {
-  x: 0, y: 0, v: 5 * window.devicePixelRatio,
-};
-
 const assets: { [key: string]: ImageBitmap } = {};
 let cnvWorker: Worker;
 
+let x = 0;
+let y = 0;
+let v = 10;
 let gameRunning: boolean = false;
 
 (async () => {
@@ -21,27 +16,25 @@ let gameRunning: boolean = false;
 
 async function loadAssets(): Promise<void> {
 
-  const assetPaths = [
-    "player",
-  ];
+  const assetPaths = [];
 
   for (let path of assetPaths) {
     const res = await fetch(`assets/${path}.png`);
     assets[path] = await createImageBitmap(await res.blob());
   }
 
-  PLAYER.x = (CANVAS.w * window.devicePixelRatio) / 2 - (assets.player.width / 2);
-  PLAYER.y = (CANVAS.h * window.devicePixelRatio) - (assets.player.height * 3);
-
 }
 
 function initCanvas(): void {
 
   const cnv = document.querySelector("canvas")!;
-  cnv.width = CANVAS.w * window.devicePixelRatio;
-  cnv.height = CANVAS.h * window.devicePixelRatio;
-  cnv.style.width = `${CANVAS.w * CANVAS.scale}px`;
-  cnv.style.height = `${CANVAS.h * CANVAS.scale}px`;
+  const w = cnv.parentElement?.clientWidth!;
+  const h = cnv.parentElement?.clientHeight!;
+
+  cnv.width = w * window.devicePixelRatio;
+  cnv.height = h * window.devicePixelRatio;
+  cnv.style.width = `${w}px`;
+  cnv.style.height = `${h}px`;
 
   const offscreenCnv = cnv.transferControlToOffscreen();
 
@@ -69,29 +62,21 @@ function initControlRouter(): void {
 
   };
 
-  const gameControls = {
+  const chartControls = {
 
-    "ArrowUp": () => {
-      PLAYER.y -= PLAYER.v;
-    },
-    "ArrowDown": () => {
-      PLAYER.y += PLAYER.v;
-    },
-    "ArrowLeft": () => {
-      PLAYER.x -= PLAYER.v;
-    },
-    "ArrowRight": () => {
-      PLAYER.x += PLAYER.v;
-    },
+    "ArrowUp": () => { y-= v; },
+    "ArrowDown": () => { y += v; },
+    "ArrowLeft": () => { x -= v; },
+    "ArrowRight": () => { x += v; },
 
   };
 
-  cr.addControlMap("game", {
+  cr.addControlMap("chart", {
     ...metaControls,
-    ...gameControls,
+    ...chartControls,
   });
 
-  cr.setControlMap("game");
+  cr.setControlMap("chart");
 
 }
 
@@ -99,7 +84,7 @@ function drawFrame(): void {
 
   cnvWorker.postMessage({ 
     msg: "draw",
-    p: PLAYER,
+    x: x, y: y,
   });
 
   if (gameRunning) {

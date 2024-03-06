@@ -7,7 +7,9 @@
   <link rel="stylesheet" href="main.css">
 </head>
 <body>
-  <canvas></canvas>
+  <div id="chart">
+    <canvas></canvas>
+  </div>
   <script src="app.js"></script>
   <script>
     new EventSource("/esbuild").addEventListener("change", () => location.reload())
