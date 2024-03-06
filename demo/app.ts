@@ -1,35 +1,53 @@
 import * as ControlRouter from "../src/control-router";
 
-const cr = ControlRouter.get();
+await loadAssets();
+initCanvas();
+initControlRouter();
 
-const metaControls = {
+async function loadAssets(): Promise<void> {
 
-  "Escape": () => {
-    console.log("menu");
-  },
+}
 
-};
+function initCanvas(): void {
 
-const gameControls = {
+  const cnv = document.querySelector("canvas");
 
-  "ArrowUp": () => {
-    console.log("up");
-  },
-  "ArrowDown": () => {
-    console.log("down");
-  },
-  "ArrowLeft": () => {
-    console.log("left");
-  },
-  "ArrowRight": () => {
-    console.log("right");
-  },
+}
 
-};
+function initControlRouter(): void {
 
-cr.addControlMap("game", {
-  ...metaControls,
-  ...gameControls,
-});
+  const cr = ControlRouter.get();
 
-cr.setControlMap("game");
+  const metaControls = {
+
+    "Escape": () => {
+      console.log("menu");
+    },
+
+  };
+
+  const gameControls = {
+
+    "ArrowUp": () => {
+      console.log("up");
+    },
+    "ArrowDown": () => {
+      console.log("down");
+    },
+    "ArrowLeft": () => {
+      console.log("left");
+    },
+    "ArrowRight": () => {
+      console.log("right");
+    },
+
+  };
+
+  cr.addControlMap("game", {
+    ...metaControls,
+    ...gameControls,
+  });
+
+  cr.setControlMap("game");
+
+}
