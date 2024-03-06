@@ -81,18 +81,12 @@ function initControlRouter(): void {
     "*Space ArrowDown": () => { move(0, v*4) },
     "*Space ArrowLeft": () => { move(v*-4, 0) },
     "*Space ArrowRight": () => { move(v*4, 0) },
-    "*MetaLeft ArrowUp": () => { 
-      if (z == 3) return;
-      z++;
-    },
-    "*MetaLeft ArrowDown": () => { 
-      if (z == 1) return;
-      z--; 
-    },
+    "*MetaLeft ArrowUp": () => { zoom(1) },
+    "*MetaLeft ArrowDown": () => { zoom(-1) },
 
   };
 
-  function move(xv, yv) {
+  function move(xv: number, yv: number) {
     x += xv;
     if (x < 0) {
       x = 0;
@@ -105,6 +99,16 @@ function initControlRouter(): void {
       y = 0;
     } else if (y > assets.map.height - cnv.height) {
       y = assets.map.height - cnv.height;
+    }
+  }
+
+  function zoom(mult: number) {
+    if (mult > 0) {
+      if (z == 3) return;
+      z++;
+    } else {
+      if (z == 1) return;
+      z--;
     }
   }
 
