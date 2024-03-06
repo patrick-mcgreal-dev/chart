@@ -7,6 +7,7 @@ let cnvWorker: Worker;
 
 let x = 0;
 let y = 0;
+let z = 1;
 let v = 25;
 
 let running: boolean = false;
@@ -80,6 +81,14 @@ function initControlRouter(): void {
     "*Space ArrowDown": () => { move(0, v*4) },
     "*Space ArrowLeft": () => { move(v*-4, 0) },
     "*Space ArrowRight": () => { move(v*4, 0) },
+    "*MetaLeft ArrowUp": () => { 
+      if (z == 3) return;
+      z++;
+    },
+    "*MetaLeft ArrowDown": () => { 
+      if (z == 1) return;
+      z--; 
+    },
 
   };
 
@@ -116,7 +125,7 @@ function drawFrame(): void {
 
   cnvWorker.postMessage({ 
     msg: "draw",
-    x: x, y: y,
+    x: x, y: y, z: z,
   });
 
   if (running) {

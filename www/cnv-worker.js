@@ -20,7 +20,7 @@ function init(data) {
 
 function draw(data) {
 
-  ctx.drawImage(assets.map, data.x, data.y, ctxW, ctxH, 0, 0, ctxW, ctxH);
+  ctx.drawImage(assets.map, data.x, data.y, ctxW / data.z, ctxH / data.z, 0, 0, ctxW, ctxH);
 
   ctx.beginPath();
   ctx.moveTo(centerX - chSize, centerY);
@@ -31,7 +31,7 @@ function draw(data) {
   ctx.moveTo(centerX, centerY - chSize);
   ctx.lineTo(centerX, centerY + chSize);
   ctx.stroke();
-  
+
 }
 
 onmessage = (evt) => {
