@@ -23,6 +23,7 @@ let running: boolean = false;
   await loadAssets();
   initCanvas();
   initControls();
+  chart_activate();
 })();
 
 async function loadAssets(): Promise<void> {
@@ -160,7 +161,7 @@ function chart_activate(): void {
 }
 
 function chart_deactivate(): void {
-  
+
   cr.setControlMap("menu");
 
   for (let event of chartEvents) {
