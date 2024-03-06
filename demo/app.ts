@@ -1,5 +1,7 @@
 import * as ControlRouter from "../src/control-router";
 
+const assets: { [key: string]: ImageBitmap } = {};
+
 (async () => {
   await loadAssets();
   initCanvas();
@@ -12,20 +14,25 @@ async function loadAssets(): Promise<void> {
     "player",
   ];
 
-  const assets: { [key: string]: ImageBitmap } = {};
-
   for (let path of assetPaths) {
     const res = await fetch(`assets/${path}.png`);
     assets[path] = await createImageBitmap(await res.blob());
   }
 
-  console.log(assets);
-
 }
 
 function initCanvas(): void {
 
-  const cnv = document.querySelector("canvas");
+  const W = 500;
+  const H = 300;
+
+  const cnv = document.querySelector("canvas")!;
+  cnv.width = W * window.devicePixelRatio;
+  cnv.height = H * window.devicePixelRatio;
+  cnv.style.width = `${W}px`;
+  cnv.style.height = `${H}px`;
+
+  const offscreen = cnv.transferControlToOffscreen();
 
 }
 
