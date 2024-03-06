@@ -87,6 +87,8 @@ function initControlRouter(): void {
   };
 
   function move(xv: number, yv: number) {
+    // x += ((cnv.width - (cnv.width / z)) / 2);
+    // y += ((cnv.height - (cnv.height / z)) / 2);
     x += xv;
     if (x < 0) {
       x = 0;
