@@ -36,6 +36,12 @@ function draw(data) {
   ctx.lineTo(centerX, centerY + chSize);
   ctx.stroke();
 
+  for (let marker of data.markers) {
+    ctx.beginPath();
+    ctx.arc(marker[0], marker[1], 5, 0, 2 * Math.PI);
+    ctx.stroke();
+  }
+
 }
 
 onmessage = (evt) => {

@@ -19,6 +19,8 @@ let v = 25;
 
 let running: boolean = false;
 
+const markers: Array<number[]> = [];
+
 (async () => {
   await loadAssets();
   initCanvas();
@@ -59,11 +61,6 @@ function initCanvas(): void {
     offscreenCnv: offscreenCnv,
     assets: assets,
   }, [ offscreenCnv ]);
-
-  cnvWorker.postMessage({
-    msg: "draw",
-    x: x, y: y, z: z,
-  });
 
 }
 
@@ -121,7 +118,8 @@ function initControls(): void {
       if (!drag) return;
       chart_move(
         -(<MouseEvent>e).movementX * 1.5/z, 
-        -(<MouseEvent>e).movementY * 1.5/z);
+        -(<MouseEvent>e).movementY * 1.5/z
+      );
     }
   });
 
@@ -142,6 +140,19 @@ function initControls(): void {
     listener: "mouseup",
     fn: function (e: Event): void {
       drag = false;
+    }
+  });
+
+  const cnvRect = cnv.getBoundingClientRect();
+
+  chartEvents.push({
+    element: cnv,
+    listener: "click",
+    fn: function (e: Event): void {
+      markers.push([
+        Math.round((<MouseEvent>e).clientX - cnvRect.left), 
+        Math.round((<MouseEvent>e).clientY - cnvRect.top),
+      ]);
     }
   });
 
@@ -207,6 +218,7 @@ function chart_drawFrame(): void {
   cnvWorker.postMessage({ 
     msg: "draw",
     x: x, y: y, z: z,
+    markers,
   });
 
   if (running) {
