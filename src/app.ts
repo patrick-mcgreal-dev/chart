@@ -120,8 +120,8 @@ function initControls(): void {
     fn: function (e: Event): void {
       if (!drag) return;
       chart_move(
-        -(<MouseEvent>e).movementX * 2, 
-        -(<MouseEvent>e).movementY * 2);
+        -(<MouseEvent>e).movementX * 1.5/z, 
+        -(<MouseEvent>e).movementY * 1.5/z);
     }
   });
 
