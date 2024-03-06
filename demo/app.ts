@@ -87,8 +87,6 @@ function initControlRouter(): void {
   };
 
   function move(xv: number, yv: number) {
-    // x += ((cnv.width - (cnv.width / z)) / 2);
-    // y += ((cnv.height - (cnv.height / z)) / 2);
     x += xv;
     if (x < 0) {
       x = 0;
@@ -105,6 +103,7 @@ function initControlRouter(): void {
   }
 
   function zoom(mult: number) {
+    let lastZ = z;
     if (mult > 0) {
       if (z == 3) return;
       z++;
@@ -112,6 +111,8 @@ function initControlRouter(): void {
       if (z == 1) return;
       z--;
     }
+    x += ((cnv.width - (cnv.width / z)) / 2) - ((cnv.width - (cnv.width / lastZ)) / 2);
+    y += ((cnv.height - (cnv.height / z)) / 2) - ((cnv.height - (cnv.height / lastZ)) / 2);
   }
 
   cr.addControlMap("menu", {
