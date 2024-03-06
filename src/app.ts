@@ -1,7 +1,12 @@
 import * as ControlRouter from "../src/control-router";
 
 const assets: { [key: string]: ImageBitmap } = {};
-const chartEvents: { [key: string]: (e: Event) => void } = {};
+
+const chartEvents: Array<{
+  element: HTMLElement,
+  listener: string,
+  fn: (e: Event) => void,
+}> = [];
 
 let cnv: HTMLCanvasElement;
 let cnvWorker: Worker;
@@ -100,28 +105,44 @@ function initControls(): void {
 
   let drag = false;
 
-  chartEvents.mousedown = (e: Event) => {
-    drag = true;
-  };
-
-  chartEvents.mousemove = (e: Event) => {
-    if (!drag) return;
-    chart_move(
-      -(<MouseEvent>e).movementX * 2, 
-      -(<MouseEvent>e).movementY * 2);
-  };
-
-  chartEvents.wheel = (e: Event) => {
-    if ((<WheelEvent>e).deltaY > 1) {
-      chart_zoom(-1);
-    } else {
-      chart_zoom(1);
+  chartEvents.push({
+    element: cnv,
+    listener: "mousedown",
+    fn: function (e: Event): void {
+      drag = true;
     }
-  };
+  });
 
-  chartEvents.mouseup = (e: Event) => {
-    drag = false;
-  };
+  chartEvents.push({
+    element: cnv,
+    listener: "mousemove",
+    fn: function (e: Event): void {
+      if (!drag) return;
+      chart_move(
+        -(<MouseEvent>e).movementX * 2, 
+        -(<MouseEvent>e).movementY * 2);
+    }
+  });
+
+  chartEvents.push({
+    element: cnv,
+    listener: "wheel",
+    fn: function (e: Event): void {
+      if ((<WheelEvent>e).deltaY > 1) {
+        chart_zoom(-1);
+      } else {
+        chart_zoom(1);
+      }
+    }
+  });
+
+  chartEvents.push({
+    element: document.body,
+    listener: "mouseup",
+    fn: function (e: Event): void {
+      drag = false;
+    }
+  });
 
 }
 
@@ -129,10 +150,9 @@ function chart_activate(): void {
 
   cr.setControlMap("chart");
 
-  cnv.addEventListener("mousedown", chartEvents.mousedown);
-  cnv.addEventListener("mousemove", chartEvents.mousemove);
-  cnv.addEventListener("wheel", chartEvents.wheel);
-  document.addEventListener("mouseup", chartEvents.mouseup);
+  for (let event of chartEvents) {
+    event.element.addEventListener(event.listener, event.fn);
+  }
 
   running = true;
   window.requestAnimationFrame(chart_drawFrame);
@@ -141,10 +161,9 @@ function chart_activate(): void {
 
 function chart_deactivate(): void {
 
-  cnv.removeEventListener("mousedown", chartEvents.mousedown);
-  cnv.removeEventListener("mousemove", chartEvents.mousemove);
-  cnv.removeEventListener("wheel", chartEvents.wheel);
-  document.removeEventListener("mouseup", chartEvents.mouseup);
+  for (let event of chartEvents) {
+    event.element.removeEventListener(event.listener, event.fn);
+  }
 
   running = false;
   cr.setControlMap("menu");
