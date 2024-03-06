@@ -8,8 +8,6 @@ const PLAYER = {
   x: 0, y: 0, v: 5 * window.devicePixelRatio,
 };
 
-console.log(PLAYER.x);
-
 const assets: { [key: string]: ImageBitmap } = {};
 let cnvWorker: Worker;
 
