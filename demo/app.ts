@@ -58,12 +58,28 @@ function initControlRouter(): void {
 
   const metaControls = {
 
-    "Escape": () => {
-      running = !running;
-      if (running) {
-        window.requestAnimationFrame(drawFrame);
-      }
+    "Enter": () => {
+      running = true;
+      window.requestAnimationFrame(drawFrame);
+      cr.setControlMap("chart");
     },
+    "Escape": () => {
+      running = false;
+      cr.setControlMap("menu");
+    },
+
+  };
+
+  const chartControls = {
+
+    "ArrowUp": () => { move(0, v) },
+    "ArrowDown": () => { move(0, -v) },
+    "ArrowLeft": () => { move(v, 0) },
+    "ArrowRight": () => { move(-v, 0) },
+    "*Space ArrowUp": () => { move(0, v*4) },
+    "*Space ArrowDown": () => { move(0, v*-4) },
+    "*Space ArrowLeft": () => { move(v*4, 0) },
+    "*Space ArrowRight": () => { move(v*-4, 0) },
 
   };
 
@@ -82,25 +98,16 @@ function initControlRouter(): void {
     }
   }
 
-  const chartControls = {
-
-    "ArrowUp": () => { move(0, v) },
-    "ArrowDown": () => { move(0, -v) },
-    "ArrowLeft": () => { move(v, 0) },
-    "ArrowRight": () => { move(-v, 0) },
-    "*Space ArrowUp": () => { move(0, v*4) },
-    "*Space ArrowDown": () => { move(0, v*-4) },
-    "*Space ArrowLeft": () => { move(v*4, 0) },
-    "*Space ArrowRight": () => { move(v*-4, 0) },
-
-  };
+  cr.addControlMap("menu", {
+    ...metaControls,
+  });
 
   cr.addControlMap("chart", {
     ...metaControls,
     ...chartControls,
   });
 
-  cr.setControlMap("chart");
+  cr.setControlMap("menu");
 
 }
 
