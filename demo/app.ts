@@ -8,6 +8,8 @@ const PLAYER = {
   x: 0, y: 0, v: 5 * window.devicePixelRatio,
 };
 
+console.log(PLAYER.x);
+
 const assets: { [key: string]: ImageBitmap } = {};
 let cnvWorker: Worker;
 
@@ -29,6 +31,9 @@ async function loadAssets(): Promise<void> {
     const res = await fetch(`assets/${path}.png`);
     assets[path] = await createImageBitmap(await res.blob());
   }
+
+  PLAYER.x = (CANVAS.w * window.devicePixelRatio) / 2 - (assets.player.width / 2);
+  PLAYER.y = (CANVAS.h * window.devicePixelRatio) - (assets.player.height * 3);
 
 }
 
