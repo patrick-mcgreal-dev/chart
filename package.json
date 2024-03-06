@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "esbuild demo/app.ts --bundle --outdir=www --watch --servedir=www"
+    "dev": "esbuild demo/app.ts --bundle --outdir=www --watch --servedir=www --minify"
   },
   "author": "Patrick McGreal",
   "license": "UNLICENSED",
