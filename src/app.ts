@@ -128,7 +128,12 @@ function initControls(): void {
         );
       } else {
         const relCoords = chart_getRelativeCoords((<MouseEvent>e).clientX, (<MouseEvent>e).clientY);
-        console.log(chart_markerHit(relCoords[0], relCoords[1]));
+        const mIndex = chart_markerHit(relCoords[0], relCoords[1]);
+        if (mIndex > -1) {
+          cnv.style.cursor = "pointer";
+        } else {
+          cnv.style.cursor = "default";
+        }
       }
     }
   });
