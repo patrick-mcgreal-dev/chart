@@ -7,6 +7,7 @@ body {
 }
 
 #chart {
+  position: relative;
   width: 100%;
   max-width: 800px;
   height: 100%;
@@ -17,4 +18,25 @@ body {
 
 canvas {
   border-radius: 5px;
+}
+
+#chart-detail {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 175px;
+  background-color: white;
+  border-radius: 5px 0 0 5px;
+  border-right: 1px solid black;
+}
+
+#chart-detail > h1 {
+  margin: 0;
+  font-size: 1em;
+  font-weight: 400;
+}
+
+#chart-detail > p {
+  margin: 0;
 }

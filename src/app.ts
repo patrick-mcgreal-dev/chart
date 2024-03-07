@@ -333,3 +333,9 @@ function chart_drawFrame(): void {
   }
 
 }
+
+function chart_showDetail(): void {
+
+
+
+}
