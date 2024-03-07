@@ -339,7 +339,7 @@ function chart_drawFrame(): void {
 
 function chart_showDetail(index: number): void {
 
-  detail.querySelector("img")!.src = "assets/map_2.png";
+  (<HTMLImageElement>detail.querySelector(".image")!).src = "assets/map_2.png";
 
   detail.querySelector("h1")!.innerText = markers[index].label;
   detail.querySelector("p")!.innerText = markerDetail[index];
