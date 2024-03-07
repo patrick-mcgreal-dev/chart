@@ -11,7 +11,6 @@ let assets;
 function init(data) {
 
   ctx = data.offscreenCnv.getContext("2d");
-  ctx.strokeStyle = "red";
   ctx.lineWidth = 3;
   ctx.font = `${fontSize}px monospace`;
   ctx.textBaseline = "middle";
@@ -78,6 +77,8 @@ function draw(data) {
   }
 
   // crosshairs
+  ctx.strokeStyle = "red";
+
   ctx.beginPath();
   ctx.moveTo(centerX - chSize, centerY);
   ctx.lineTo(centerX + chSize, centerY);
