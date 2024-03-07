@@ -27,15 +27,45 @@ function init(data) {
 
 function draw(data) {
 
+  // clear
   ctx.fillStyle = "white";
   ctx.fillRect(0, 0, ctxW, ctxH);
 
+  // map
   ctx.drawImage(assets.map, 
     data.x, data.y,
     ctxW / data.z, ctxH / data.z, 
     0, 0, 
     ctxW, ctxH);
 
+  for (let marker of data.markers) {
+
+    const x = (marker[0] - data.x) * data.z;
+    const y = (marker[1] - data.y) * data.z;
+
+    ctx.fillStyle = "blue";
+
+    // point
+    ctx.beginPath();
+    ctx.arc(x, y, 8, 0, 2 * Math.PI);
+    ctx.fill();
+
+    // label background
+    ctx.fillRect(
+      x + marker[2][0], 
+      y + marker[2][1], 
+      marker[2][2],
+      marker[2][3]);
+
+    // label
+    ctx.fillStyle = "white";
+    ctx.fillText("Label", 
+      x + labelXoffset + labelPadding, 
+      y + (labelYoffset / 2) - labelPadding);
+
+  }
+
+  // crosshairs
   ctx.beginPath();
   ctx.moveTo(centerX - chSize, centerY);
   ctx.lineTo(centerX + chSize, centerY);
@@ -45,29 +75,6 @@ function draw(data) {
   ctx.moveTo(centerX, centerY - chSize);
   ctx.lineTo(centerX, centerY + chSize);
   ctx.stroke();
-
-  for (let marker of data.markers) {
-
-    const x = (marker[0] - data.x) * data.z;
-    const y = (marker[1] - data.y) * data.z;
-
-    ctx.fillStyle = "blue";
-    // point
-    ctx.beginPath();
-    ctx.arc(x, y, 8, 0, 2 * Math.PI);
-    ctx.fill();
-    // label background
-    ctx.fillRect(
-      x + marker[2][0], 
-      y + marker[2][1], 
-      marker[2][2],
-      marker[2][3]);
-    // label
-    ctx.fillStyle = "white";
-    ctx.fillText("Label", 
-      x + labelXoffset + labelPadding, 
-      y + (labelYoffset / 2) - labelPadding);
-  }
 
 }
 
