@@ -146,6 +146,14 @@ function initControls(): void {
     }
   });
 
+  chartEvents.push({
+    element: document.body,
+    listener: "mouseleave",
+    fn: function (e: Event): void {
+      drag = false;
+    }
+  });
+
   const cnvRect = cnv.getBoundingClientRect();
 
   chartEvents.push({
