@@ -38,7 +38,10 @@ function draw(data) {
 
   for (let marker of data.markers) {
     ctx.beginPath();
-    ctx.arc(marker[0] - data.x,  marker[1] - data.y, 5, 0, 2 * Math.PI);
+    ctx.arc(
+      (marker[0] - data.x) * data.z, 
+      (marker[1] - data.y) * data.z, 
+      5, 0, 2 * Math.PI);
     ctx.stroke();
   }
 

@@ -203,9 +203,9 @@ function chart_move(xv: number, yv: number): void {
   }
 }
 
-function chart_zoom(mult: number): void {
+function chart_zoom(dir: number): void {
   let lastZ = z;
-  if (mult > 0) {
+  if (dir > 0) {
     if (z == 3) return;
     z++;
   } else {
