@@ -154,6 +154,7 @@ function initControls(): void {
     listener: "mousedown",
     fn: (e: Event): void => {
       dragging = true;
+      cnv.style.cursor = "move";
     }
   });
 
@@ -195,6 +196,7 @@ function initControls(): void {
     listener: "mouseup",
     fn: (e: Event): void => {
       dragging = false;
+      cnv.style.cursor = "default";
     }
   });
 
@@ -203,6 +205,7 @@ function initControls(): void {
     listener: "mouseleave",
     fn: (e: Event): void => {
       dragging = false;
+      cnv.style.cursor = "default";
     }
   });
 
