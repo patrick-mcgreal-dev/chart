@@ -28,7 +28,10 @@ const markers: Array<{ label: string, pos: number[] }> = Data.map(d => ({
   pos: d.pos 
 }));
 
-const markerDetail: string[] = Data.map(d => d.detail);
+const markerDetail: Array<{ detail: string, img: string }> = Data.map(d => ({
+  detail: d.detail,
+  img: d.img,
+}));
 
 (async () => {
   detail = <HTMLDivElement>document.getElementById("chart-detail")!;
@@ -339,9 +342,9 @@ function chart_drawFrame(): void {
 
 function chart_showDetail(index: number): void {
 
-  (<HTMLImageElement>detail.querySelector(".image")!).src = "assets/map_2.png";
+  (<HTMLImageElement>detail.querySelector(".image")!).src = `assets/${markerDetail[index].img}.png`;
 
   detail.querySelector("h1")!.innerText = markers[index].label;
-  detail.querySelector("p")!.innerText = markerDetail[index];
+  detail.querySelector("p")!.innerText = markerDetail[index].detail;
 
 }
