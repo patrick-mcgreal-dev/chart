@@ -40,7 +40,7 @@ canvas {
 #chart-detail > header > .image {
   position: relative;
   width: 100%;
-  height: 100%;
+  height: 125px;
 }
 
 #chart-detail > header > .x {
