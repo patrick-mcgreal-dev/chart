@@ -21,7 +21,18 @@ let v = 25;
 let running: boolean = false;
 
 const markers: Array<number[]> = [
-
+  [988, 709], // Hobbiton
+  [1196, 709], // Bree
+  [1703, 676], // Rivendell
+  [1689, 890], // Moria Gate
+  [1523, 1311], // Isengard
+  [1740, 1242], // Fangorn
+  [1656, 1479], // Helm's Deep
+  [1823, 1054], // Lorien
+  [2294, 451], // Erebor: The Lonely Mountain
+  [2225, 1709], // Minas Tirith
+  [2552, 1626], // Barad Dur
+  [2184, 1529], // Dead Marshes
 ];
 
 (async () => {
