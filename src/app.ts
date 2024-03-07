@@ -235,7 +235,7 @@ function initControls(): void {
         // console.log(`[${relCoords[0]}, ${relCoords[1]}],`);
         cnvWorker.postMessage({
           msg: "marker",
-          text: "label",
+          text: "",
         });
       } else {
         if (markerIndex > -1) {

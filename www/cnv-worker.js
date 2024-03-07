@@ -43,27 +43,37 @@ function draw(data) {
     const x = (marker.pos[0] - data.x) * data.z;
     const y = (marker.pos[1] - data.y) * data.z;
 
-    ctx.fillStyle = "red";
+    if (marker.label == "") {
 
-    // point
-    ctx.beginPath();
-    ctx.arc(x, y, 8, 0, 2 * Math.PI);
-    ctx.fill();
+      // point
+      ctx.fillStyle = "lightgreen";
+      ctx.beginPath();
+      ctx.arc(x, y, 8, 0, 2 * Math.PI);
+      ctx.fill();
 
-    ctx.fillStyle = "blue";
+    } else {
 
-    // label background
-    ctx.fillRect(
-      x + marker.pos[2][0], 
-      y + marker.pos[2][1], 
-      marker.pos[2][2],
-      marker.pos[2][3]);
+      // point
+      ctx.fillStyle = "red";
+      ctx.beginPath();
+      ctx.arc(x, y, 8, 0, 2 * Math.PI);
+      ctx.fill();
+      
+      // label background
+      ctx.fillStyle = "blue";
+      ctx.fillRect(
+        x + marker.pos[2][0], 
+        y + marker.pos[2][1], 
+        marker.pos[2][2],
+        marker.pos[2][3]);
+  
+      // label
+      ctx.fillStyle = "white";
+      ctx.fillText(marker.label, 
+        x + labelXoffset + labelPadding, 
+        y + (labelYoffset / 2) - labelPadding);
 
-    // label
-    ctx.fillStyle = "white";
-    ctx.fillText(marker.label, 
-      x + labelXoffset + labelPadding, 
-      y + (labelYoffset / 2) - labelPadding);
+    }
 
   }
 
