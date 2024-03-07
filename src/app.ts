@@ -150,8 +150,8 @@ function initControls(): void {
     listener: "click",
     fn: function (e: Event): void {
       markers.push([
-        Math.round((<MouseEvent>e).clientX - cnvRect.left), 
-        Math.round((<MouseEvent>e).clientY - cnvRect.top),
+        Math.round(((<MouseEvent>e).clientX - cnvRect.left) * window.devicePixelRatio), 
+        Math.round(((<MouseEvent>e).clientY - cnvRect.top) * window.devicePixelRatio),
       ]);
     }
   });
