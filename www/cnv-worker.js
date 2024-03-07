@@ -43,12 +43,14 @@ function draw(data) {
     const x = (marker.pos[0] - data.x) * data.z;
     const y = (marker.pos[1] - data.y) * data.z;
 
-    ctx.fillStyle = "blue";
+    ctx.fillStyle = "red";
 
     // point
     ctx.beginPath();
     ctx.arc(x, y, 8, 0, 2 * Math.PI);
     ctx.fill();
+
+    ctx.fillStyle = "blue";
 
     // label background
     ctx.fillRect(
