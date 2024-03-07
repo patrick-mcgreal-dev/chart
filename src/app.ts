@@ -165,10 +165,13 @@ function initControls(): void {
       if (marking) {
         markers.push([ relX, relY ]);
       } else {
-        // const marker = markers.find(m => 
-        //   m[0] >= relX - 50 && m[0] <= relX + 50
-        //   && m[1] >= relY - 50 && m[1] <= relY + 50);
-        // console.log(marker);
+        console.log("click: ", relX, relY);
+        for (let marker of markers) {
+          if (marker[0] == relX && marker[1] == relY) {
+            console.log("hit");
+            break;
+          }
+        }
       }
     }
   });
