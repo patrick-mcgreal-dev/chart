@@ -55,10 +55,10 @@ function draw(data) {
     ctx.fill();
     // label background
     ctx.fillRect(
-      x + labelX, 
-      y + labelY - labelPadding * 2, 
-      ctx.measureText("Label").width + (labelPadding * 2), 
-      fontSize + labelPadding * 2);
+      x + marker[2][0], 
+      y + marker[2][1], 
+      marker[2][2],
+      marker[2][3]);
     // label
     ctx.fillStyle = "white";
     ctx.fillText("Label", 
@@ -68,9 +68,22 @@ function draw(data) {
 
 }
 
+function marker(data) {
+  postMessage({
+    msg: "marker",
+    box: [
+      labelX,
+      labelY - labelPadding * 2,
+      Math.ceil(ctx.measureText(data.text).width + (labelPadding * 2)),
+      fontSize + labelPadding * 2,
+    ],
+  });
+}
+
 onmessage = (evt) => {
   switch (evt.data.msg) {
     case "draw": draw(evt.data); break;
+    case "marker": marker(evt.data); break;
     case "init": init(evt.data); break;
   }
 };

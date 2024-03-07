@@ -156,6 +156,12 @@ function initControls(): void {
 
   const cnvRect = cnv.getBoundingClientRect();
 
+  cnvWorker.onmessage = (e) => {
+    if (e.data.msg == "marker") {
+      markers[markers.length - 1][2] = e.data.box;
+    }
+  };
+
   chartEvents.push({
     element: cnv,
     listener: "click",
@@ -164,6 +170,10 @@ function initControls(): void {
       const relY = Math.round(((<MouseEvent>e).clientY - cnvRect.top) * window.devicePixelRatio + (y * z)) / z;
       if (marking) {
         markers.push([ relX, relY ]);
+        cnvWorker.postMessage({
+          msg: "marker",
+          text: "Label",
+        });
       } else {
         console.log("click: ", relX, relY);
         for (let marker of markers) {
