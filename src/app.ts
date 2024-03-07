@@ -26,6 +26,8 @@ const markers: Array<{ label: string, pos: number[] }> = Data.map(d => ({
   pos: d.pos 
 }));
 
+const markerDetail: string[] = Data.map(d => d.detail);
+
 (async () => {
   await loadAssets();
   initCanvas();
@@ -218,7 +220,7 @@ function initControls(): void {
         });
       } else {
         if (markerIndex > -1) {
-          console.log(markerIndex);
+          console.log(markerDetail[markerIndex]);
         }
       }
     }

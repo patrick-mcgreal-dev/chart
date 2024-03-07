@@ -1,14 +1,50 @@
 [
-  { "label": "Hobbiton", "pos": [988, 709] },
-  { "label": "Bree", "pos": [1196, 709] },
-  { "label": "Rivendell", "pos": [1703, 676] },
-  { "label": "Moria Gate", "pos": [1689, 890] },
-  { "label": "Isengard", "pos": [1523, 1311] },
-  { "label": "Fangorn", "pos": [1740, 1242] },
-  { "label": "Helm's Deep", "pos": [1656, 1479] },
-  { "label": "Lorien", "pos": [1823, 1054] },
-  { "label": "Erebor: The Lonely Mountain", "pos": [2294, 451] },
-  { "label": "Minas Tirith", "pos": [2225, 1709] },
-  { "label": "Barad-dûr", "pos": [2552, 1626] },
-  { "label": "Dead Marshes", "pos": [2184, 1529] }
+  { 
+    "label": "Hobbiton", "pos": [988, 709],
+    "detail": "Hobbiton is..."
+   },
+  { 
+    "label": "Bree", "pos": [1196, 709],
+    "detail": "Bree is..."
+  },
+  { 
+    "label": "Rivendell", "pos": [1703, 676],
+    "detail": "Rivendell is..."
+  },
+  { 
+    "label": "Moria Gate", "pos": [1689, 890],
+    "detail": "Moria Gate is..."
+  },
+  { 
+    "label": "Isengard", "pos": [1523, 1311],
+    "detail": "Isengard is..."
+  },
+  { 
+    "label": "Fangorn", "pos": [1740, 1242],
+    "detail": "Fangorn is..."
+  },
+  { 
+    "label": "Helm's Deep", "pos": [1656, 1479],
+    "detail": "Helm's Deep is..."
+  },
+  { 
+    "label": "Lorien", "pos": [1823, 1054],
+    "detail": "Lorien is..."
+  },
+  { 
+    "label": "Erebor: The Lonely Mountain", "pos": [2294, 451],
+    "detail": "Erebor is..."
+  },
+  { 
+    "label": "Minas Tirith", "pos": [2225, 1709],
+    "detail": "Minas Tirith is..."
+  },
+  { 
+    "label": "Barad-dûr", "pos": [2552, 1626],
+    "detail": "Barad-dûr is..."
+  },
+  { 
+    "label": "Dead Marshes", "pos": [2184, 1529],
+    "detail": "The Dead Marshes are..."
+  }
 ]
