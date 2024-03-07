@@ -175,13 +175,9 @@ function initControls(): void {
           text: "Label",
         });
       } else {
-        for (let marker of markers) {
-          if (relX < marker[0] + marker[2][0]) continue;
-          if (relX > marker[0] + marker[2][0] + marker[2][2]) continue;
-          if (relY < marker[1] + marker[2][1]) continue;
-          if (relY > marker[1] + marker[2][1] + marker[2][3]) continue;
+        const mIndex = chart_markerHit(relX, relY);
+        if (mIndex > -1) {
           console.log("hit");
-          break;
         }
       }
     }
@@ -242,6 +238,18 @@ function chart_zoom(dir: number): void {
   x += ((cnv.width - (cnv.width / z)) / 2) - ((cnv.width - (cnv.width / lastZ)) / 2);
   y += ((cnv.height - (cnv.height / z)) / 2) - ((cnv.height - (cnv.height / lastZ)) / 2);
   chart_move(0, 0);
+}
+
+function chart_markerHit(x: number, y: number): number {
+  for (let m = 0; m < markers.length; m++) {
+    const marker = markers[m];
+    if (x < marker[0] + marker[2][0]) continue;
+    if (x > marker[0] + marker[2][0] + marker[2][2]) continue;
+    if (y < marker[1] + marker[2][1]) continue;
+    if (y > marker[1] + marker[2][1] + marker[2][3]) continue;
+    return m;
+  }
+  return -1;
 }
 
 function chart_drawFrame(): void {
