@@ -66,8 +66,8 @@ function initCanvas(): void {
 
 function initControls(): void {
 
-  let drag = false;
-  let mark = false;
+  let dragging = false;
+  let marking = false;
 
   cr = ControlRouter.get();
 
@@ -90,8 +90,8 @@ function initControls(): void {
     "*Space ArrowRight": () => { chart_move(v * 4, 0) },
     "*MetaLeft ArrowUp": () => { chart_zoom(1) },
     "*MetaLeft ArrowDown": () => { chart_zoom(-1) },
-    "MetaLeft": () => { mark = true },
-    "-*MetaLeft": () => { mark = false },
+    "MetaLeft": () => { marking = true },
+    "-*MetaLeft": () => { marking = false },
 
   };
 
@@ -110,7 +110,7 @@ function initControls(): void {
     element: cnv,
     listener: "mousedown",
     fn: (e: Event): void => {
-      drag = true;
+      dragging = true;
     }
   });
 
@@ -118,7 +118,7 @@ function initControls(): void {
     element: cnv,
     listener: "mousemove",
     fn: (e: Event): void => {
-      if (!drag) return;
+      if (!dragging) return;
       chart_move(
         -(<MouseEvent>e).movementX * 1.5 / z,
         -(<MouseEvent>e).movementY * 1.5 / z
@@ -142,7 +142,7 @@ function initControls(): void {
     element: document.body,
     listener: "mouseup",
     fn: (e: Event): void => {
-      drag = false;
+      dragging = false;
     }
   });
 
@@ -150,7 +150,7 @@ function initControls(): void {
     element: document.body,
     listener: "mouseleave",
     fn: (e: Event): void => {
-      drag = false;
+      dragging = false;
     }
   });
 
@@ -160,11 +160,16 @@ function initControls(): void {
     element: cnv,
     listener: "click",
     fn: (e: Event): void => {
-      if (!mark) return;
-      markers.push([
-        Math.round(((<MouseEvent>e).clientX - cnvRect.left) * window.devicePixelRatio + (x * z)) / z,
-        Math.round(((<MouseEvent>e).clientY - cnvRect.top) * window.devicePixelRatio + (y * z)) / z,
-      ]);
+      const relX = Math.round(((<MouseEvent>e).clientX - cnvRect.left) * window.devicePixelRatio + (x * z)) / z;
+      const relY = Math.round(((<MouseEvent>e).clientY - cnvRect.top) * window.devicePixelRatio + (y * z)) / z;
+      if (marking) {
+        markers.push([ relX, relY ]);
+      } else {
+        // const marker = markers.find(m => 
+        //   m[0] >= relX - 50 && m[0] <= relX + 50
+        //   && m[1] >= relY - 50 && m[1] <= relY + 50);
+        // console.log(marker);
+      }
     }
   });
 
