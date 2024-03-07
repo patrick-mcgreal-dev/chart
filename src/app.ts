@@ -9,6 +9,7 @@ const chartEvents: Array<{
 }> = [];
 
 let cnv: HTMLCanvasElement;
+let cnvRect: DOMRect;
 let cnvWorker: Worker;
 let cr: ControlRouter.API;
 
@@ -46,6 +47,8 @@ function initCanvas(): void {
   cnv = document.querySelector("canvas")!;
   const w = cnv.parentElement?.clientWidth!;
   const h = cnv.parentElement?.clientHeight!;
+
+  cnvRect = cnv.getBoundingClientRect();
 
   cnv.width = w * window.devicePixelRatio;
   cnv.height = h * window.devicePixelRatio;
@@ -118,11 +121,15 @@ function initControls(): void {
     element: cnv,
     listener: "mousemove",
     fn: (e: Event): void => {
-      if (!dragging) return;
-      chart_move(
-        -(<MouseEvent>e).movementX * 1.5 / z,
-        -(<MouseEvent>e).movementY * 1.5 / z
-      );
+      if (dragging) {
+        chart_move(
+          -(<MouseEvent>e).movementX * 1.5 / z,
+          -(<MouseEvent>e).movementY * 1.5 / z
+        );
+      } else {
+        const relCoords = chart_getRelativeCoords((<MouseEvent>e).clientX, (<MouseEvent>e).clientY);
+        console.log(chart_markerHit(relCoords[0], relCoords[1]));
+      }
     }
   });
 
@@ -154,8 +161,6 @@ function initControls(): void {
     }
   });
 
-  const cnvRect = cnv.getBoundingClientRect();
-
   cnvWorker.onmessage = (e) => {
     if (e.data.msg == "marker") {
       markers[markers.length - 1][2] = e.data.box;
@@ -166,16 +171,15 @@ function initControls(): void {
     element: cnv,
     listener: "click",
     fn: (e: Event): void => {
-      const relX = Math.round(((<MouseEvent>e).clientX - cnvRect.left) * window.devicePixelRatio + (x * z)) / z;
-      const relY = Math.round(((<MouseEvent>e).clientY - cnvRect.top) * window.devicePixelRatio + (y * z)) / z;
+      const relCoords = chart_getRelativeCoords((<MouseEvent>e).clientX, (<MouseEvent>e).clientY);
       if (marking) {
-        markers.push([ relX, relY ]);
+        markers.push(relCoords);
         cnvWorker.postMessage({
           msg: "marker",
           text: "Label",
         });
       } else {
-        const mIndex = chart_markerHit(relX, relY);
+        const mIndex = chart_markerHit(relCoords[0], relCoords[1]);
         if (mIndex > -1) {
           console.log("hit");
         }
@@ -240,13 +244,20 @@ function chart_zoom(dir: number): void {
   chart_move(0, 0);
 }
 
-function chart_markerHit(x: number, y: number): number {
+function chart_getRelativeCoords(windX: number, windY: number): [number, number] {
+  return [
+    Math.round((windX - cnvRect.left) * window.devicePixelRatio + (x * z)) / z,
+    Math.round((windY - cnvRect.top) * window.devicePixelRatio + (y * z)) / z,
+  ]
+}
+
+function chart_markerHit(relX: number, relY: number): number {
   for (let m = 0; m < markers.length; m++) {
     const marker = markers[m];
-    if (x < marker[0] + marker[2][0]) continue;
-    if (x > marker[0] + marker[2][0] + marker[2][2]) continue;
-    if (y < marker[1] + marker[2][1]) continue;
-    if (y > marker[1] + marker[2][1] + marker[2][3]) continue;
+    if (relX < marker[0] + marker[2][0]) continue;
+    if (relX > marker[0] + marker[2][0] + marker[2][2]) continue;
+    if (relY < marker[1] + marker[2][1]) continue;
+    if (relY > marker[1] + marker[2][1] + marker[2][3]) continue;
     return m;
   }
   return -1;
