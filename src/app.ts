@@ -14,6 +14,8 @@ let cnvRect: DOMRect;
 let cnvWorker: Worker;
 let cr: ControlRouter.API;
 
+let detail: HTMLDivElement;
+
 let x = 0;
 let y = 0;
 let z = 1;
@@ -29,6 +31,7 @@ const markers: Array<{ label: string, pos: number[] }> = Data.map(d => ({
 const markerDetail: string[] = Data.map(d => d.detail);
 
 (async () => {
+  detail = <HTMLDivElement>document.getElementById("chart-detail")!;
   await loadAssets();
   initCanvas();
   await initMarkers();
@@ -223,7 +226,7 @@ function initControls(): void {
         });
       } else {
         if (markerIndex > -1) {
-          console.log(markerDetail[markerIndex]);
+          chart_showDetail(markerIndex);
         }
       }
     }
@@ -334,8 +337,9 @@ function chart_drawFrame(): void {
 
 }
 
-function chart_showDetail(): void {
+function chart_showDetail(index: number): void {
 
-
+  detail.querySelector("h1")!.innerText = markers[index].label;
+  detail.querySelector("p")!.innerText = markerDetail[index];
 
 }
