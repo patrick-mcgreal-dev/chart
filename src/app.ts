@@ -34,13 +34,10 @@ const markerDetail: Array<{ detail: string, img: string }> = Data.map(d => ({
 }));
 
 (async () => {
-  detail = <HTMLDivElement>document.getElementById("chart-detail")!;
-  detail.querySelector(".x")!.addEventListener("click", (e) => {
-    detail.style.display = "none";
-  });
   await loadAssets();
   initCanvas();
   await initMarkers();
+  initDetail();
   initControls();
   chart_activate();
 })();
@@ -111,6 +108,16 @@ function initMarkers(): Promise<void> {
       });
     }
 
+  });
+
+}
+
+function initDetail(): void {
+
+  detail = <HTMLDivElement>document.getElementById("chart-detail")!;
+
+  detail.querySelector(".x")!.addEventListener("click", (e) => {
+    detail.style.display = "none";
   });
 
 }
@@ -232,7 +239,7 @@ function initControls(): void {
         });
       } else {
         if (markerIndex > -1) {
-          chart_showDetail(markerIndex);
+          detail_show(markerIndex);
         }
       }
     }
@@ -343,7 +350,7 @@ function chart_drawFrame(): void {
 
 }
 
-function chart_showDetail(index: number): void {
+function detail_show(index: number): void {
 
   (<HTMLImageElement>detail.querySelector(".image")!).src = `assets/${markerDetail[index].img}.png`;
 
