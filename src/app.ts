@@ -293,7 +293,7 @@ function chart_zoom(dir: number): void {
     z = z + .1 > 3 ? 3 : z + .1;
   } else {
     if (z == .1) return;
-    z = z - .1 < .3 ? .3 : z - .1;
+    z = z - .1 < .8 ? .8 : z - .1;
   }
   x += ((cnv.width - (cnv.width / z)) / 2) - ((cnv.width - (cnv.width / lastZ)) / 2);
   y += ((cnv.height - (cnv.height / z)) / 2) - ((cnv.height - (cnv.height / lastZ)) / 2);
