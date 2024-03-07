@@ -21,6 +21,7 @@ canvas {
 }
 
 #chart-detail {
+  display: none;
   font-family: sans-serif;
   position: absolute;
   top: 0;
@@ -56,6 +57,10 @@ canvas {
   justify-content: center;
   padding: 4px;
   background-color: white;
+}
+
+#chart-detail > header > .x:hover {
+  cursor: pointer;
 }
 
 #chart-detail > h1 {

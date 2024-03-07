@@ -35,6 +35,9 @@ const markerDetail: Array<{ detail: string, img: string }> = Data.map(d => ({
 
 (async () => {
   detail = <HTMLDivElement>document.getElementById("chart-detail")!;
+  detail.querySelector(".x")!.addEventListener("click", (e) => {
+    detail.style.display = "none";
+  });
   await loadAssets();
   initCanvas();
   await initMarkers();
@@ -346,5 +349,7 @@ function chart_showDetail(index: number): void {
 
   detail.querySelector("h1")!.innerText = markers[index].label;
   detail.querySelector("p")!.innerText = markerDetail[index].detail;
+
+  detail.style.display = "block";
 
 }
