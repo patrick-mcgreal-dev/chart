@@ -162,8 +162,8 @@ function initControls(): void {
     fn: (e: Event): void => {
       if (!mark) return;
       markers.push([
-        Math.round(((<MouseEvent>e).clientX - cnvRect.left) * window.devicePixelRatio + x), 
-        Math.round(((<MouseEvent>e).clientY - cnvRect.top) * window.devicePixelRatio + y),
+        Math.round(((<MouseEvent>e).clientX - cnvRect.left) * window.devicePixelRatio + x) / z, 
+        Math.round(((<MouseEvent>e).clientY - cnvRect.top) * window.devicePixelRatio + y) / z,
       ]);
     }
   });
