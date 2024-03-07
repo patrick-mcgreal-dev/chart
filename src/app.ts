@@ -209,7 +209,7 @@ function initControls(): void {
       const relCoords = chart_getRelativeCoords((<MouseEvent>e).clientX, (<MouseEvent>e).clientY);
       if (marking) {
         markers.push(relCoords);
-        console.log(relCoords);
+        console.log(`[${relCoords[0]}, ${relCoords[1]}]`);
         cnvWorker.postMessage({
           msg: "marker",
           text: "Label",
@@ -221,6 +221,12 @@ function initControls(): void {
       }
     }
   });
+
+  cnvWorker.onmessage = (e) => {
+    if (e.data.msg == "marker") {
+      markers[markers.length - 1][2] = e.data.box;
+    }
+  }
 
 }
 
