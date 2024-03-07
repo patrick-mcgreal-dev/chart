@@ -20,11 +20,14 @@ let v = 25;
 
 let running: boolean = false;
 
-const markers: Array<number[]> = [];
+const markers: Array<number[]> = [
+  [ 2293, 436 ],
+];
 
 (async () => {
   await loadAssets();
   initCanvas();
+  await initMarkers();
   initControls();
   chart_activate();
 })();
@@ -64,6 +67,36 @@ function initCanvas(): void {
     offscreenCnv: offscreenCnv,
     assets: assets,
   }, [offscreenCnv]);
+
+}
+
+function initMarkers(): Promise<void> {
+
+  return new Promise((res, rej) => {
+
+    let mIndex = 0;
+
+    const mInit = (e) => {
+      if (e.data.msg == "marker") {
+        markers[mIndex][2] = e.data.box;
+        mIndex++;
+        if (mIndex == markers.length) {
+          cnvWorker.removeEventListener("message", mInit);
+          res();
+        }
+      }
+    }
+
+    cnvWorker.addEventListener("message", mInit);
+
+    for (let marker of markers) {
+      cnvWorker.postMessage({
+        msg: "marker",
+        text: "Label",
+      });
+    }
+
+  });
 
 }
 
@@ -169,12 +202,6 @@ function initControls(): void {
     }
   });
 
-  cnvWorker.onmessage = (e) => {
-    if (e.data.msg == "marker") {
-      markers[markers.length - 1][2] = e.data.box;
-    }
-  };
-
   chartEvents.push({
     element: cnv,
     listener: "click",
@@ -182,6 +209,7 @@ function initControls(): void {
       const relCoords = chart_getRelativeCoords((<MouseEvent>e).clientX, (<MouseEvent>e).clientY);
       if (marking) {
         markers.push(relCoords);
+        console.log(relCoords);
         cnvWorker.postMessage({
           msg: "marker",
           text: "Label",
@@ -261,8 +289,8 @@ function chart_zoom(dir: number): void {
 
 function chart_getRelativeCoords(windX: number, windY: number): [number, number] {
   return [
-    Math.round((windX - cnvRect.left) * window.devicePixelRatio + (x * z)) / z,
-    Math.round((windY - cnvRect.top) * window.devicePixelRatio + (y * z)) / z,
+    Math.round(((windX - cnvRect.left) * window.devicePixelRatio + (x * z)) / z),
+    Math.round(((windY - cnvRect.top) * window.devicePixelRatio + (y * z)) / z),
   ]
 }
 
