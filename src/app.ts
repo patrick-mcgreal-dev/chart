@@ -222,7 +222,7 @@ function initControls(): void {
       const relCoords = chart_getRelativeCoords((<MouseEvent>e).clientX, (<MouseEvent>e).clientY);
       if (marking) {
         markers.push({ label: "", pos: relCoords });
-        console.log(`[${relCoords[0]}, ${relCoords[1]}],`);
+        // console.log(`[${relCoords[0]}, ${relCoords[1]}],`);
         cnvWorker.postMessage({
           msg: "marker",
           text: "label",
