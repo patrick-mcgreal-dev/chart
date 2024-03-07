@@ -1,4 +1,5 @@
 import * as ControlRouter from "../src/control-router";
+import Data from "./data.json";
 
 const assets: { [key: string]: ImageBitmap } = {};
 
@@ -20,20 +21,10 @@ let v = 25;
 
 let running: boolean = false;
 
-const markers: Array<{ label: string, pos: number[] }> = [
-  { label: "Hobbiton", pos: [988, 709] },
-  { label: "Bree", pos: [1196, 709] },
-  { label: "Rivendell", pos: [1703, 676] },
-  { label: "Moria Gate", pos: [1689, 890] },
-  { label: "Isengard", pos: [1523, 1311] },
-  { label: "Fangorn", pos: [1740, 1242] },
-  { label: "Helm's Deep", pos: [1656, 1479] },
-  { label: "Lorien", pos: [1823, 1054] },
-  { label: "Erebor: The Lonely Mountain", pos: [2294, 451] },
-  { label: "Minas Tirith", pos: [2225, 1709] },
-  { label: "Barad-dûr", pos: [2552, 1626] },
-  { label: "Dead Marshes", pos: [2184, 1529] },
-];
+const markers: Array<{ label: string, pos: number[] }> = Data.map(d => ({ 
+  label: d.label, 
+  pos: d.pos 
+}));
 
 (async () => {
   await loadAssets();
