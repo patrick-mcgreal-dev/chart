@@ -109,7 +109,7 @@ function initControls(): void {
   chartEvents.push({
     element: cnv,
     listener: "mousedown",
-    fn: function (e: Event): void {
+    fn: (e: Event): void => {
       drag = true;
     }
   });
@@ -117,7 +117,7 @@ function initControls(): void {
   chartEvents.push({
     element: cnv,
     listener: "mousemove",
-    fn: function (e: Event): void {
+    fn: (e: Event): void => {
       if (!drag) return;
       chart_move(
         -(<MouseEvent>e).movementX * 1.5/z, 
@@ -129,7 +129,7 @@ function initControls(): void {
   chartEvents.push({
     element: cnv,
     listener: "wheel",
-    fn: function (e: Event): void {
+    fn: (e: Event): void => {
       if ((<WheelEvent>e).deltaY > 1) {
         chart_zoom(-1);
       } else {
@@ -141,7 +141,7 @@ function initControls(): void {
   chartEvents.push({
     element: document.body,
     listener: "mouseup",
-    fn: function (e: Event): void {
+    fn: (e: Event): void => {
       drag = false;
     }
   });
@@ -149,7 +149,7 @@ function initControls(): void {
   chartEvents.push({
     element: document.body,
     listener: "mouseleave",
-    fn: function (e: Event): void {
+    fn: (e: Event): void => {
       drag = false;
     }
   });
@@ -159,7 +159,7 @@ function initControls(): void {
   chartEvents.push({
     element: cnv,
     listener: "click",
-    fn: function (e: Event): void {
+    fn: (e: Event): void => {
       if (!mark) return;
       markers.push([
         Math.round(((<MouseEvent>e).clientX - cnvRect.left) * window.devicePixelRatio + x), 
