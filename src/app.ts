@@ -60,7 +60,7 @@ function initCanvas(): void {
     msg: "init",
     offscreenCnv: offscreenCnv,
     assets: assets,
-  }, [ offscreenCnv ]);
+  }, [offscreenCnv]);
 
 }
 
@@ -84,10 +84,10 @@ function initControls(): void {
     "ArrowDown": () => { chart_move(0, v) },
     "ArrowLeft": () => { chart_move(-v, 0) },
     "ArrowRight": () => { chart_move(v, 0) },
-    "*Space ArrowUp": () => { chart_move(0, v*-4) },
-    "*Space ArrowDown": () => { chart_move(0, v*4) },
-    "*Space ArrowLeft": () => { chart_move(v*-4, 0) },
-    "*Space ArrowRight": () => { chart_move(v*4, 0) },
+    "*Space ArrowUp": () => { chart_move(0, v * -4) },
+    "*Space ArrowDown": () => { chart_move(0, v * 4) },
+    "*Space ArrowLeft": () => { chart_move(v * -4, 0) },
+    "*Space ArrowRight": () => { chart_move(v * 4, 0) },
     "*MetaLeft ArrowUp": () => { chart_zoom(1) },
     "*MetaLeft ArrowDown": () => { chart_zoom(-1) },
     "MetaLeft": () => { mark = true },
@@ -120,8 +120,8 @@ function initControls(): void {
     fn: (e: Event): void => {
       if (!drag) return;
       chart_move(
-        -(<MouseEvent>e).movementX * 1.5/z, 
-        -(<MouseEvent>e).movementY * 1.5/z
+        -(<MouseEvent>e).movementX * 1.5 / z,
+        -(<MouseEvent>e).movementY * 1.5 / z
       );
     }
   });
@@ -162,8 +162,8 @@ function initControls(): void {
     fn: (e: Event): void => {
       if (!mark) return;
       markers.push([
-        Math.round(((<MouseEvent>e).clientX - cnvRect.left) * window.devicePixelRatio + x) / z, 
-        Math.round(((<MouseEvent>e).clientY - cnvRect.top) * window.devicePixelRatio + y) / z,
+        Math.round(((<MouseEvent>e).clientX - cnvRect.left) * window.devicePixelRatio + (x * z)) / z,
+        Math.round(((<MouseEvent>e).clientY - cnvRect.top) * window.devicePixelRatio + (y * z)) / z,
       ]);
     }
   });
@@ -199,7 +199,7 @@ function chart_move(xv: number, yv: number): void {
   x += xv;
   if (x < 0) {
     x = 0;
-  } 
+  }
   else if (x > assets.map.width - (cnv.width / z)) {
     x = assets.map.width - (cnv.width / z);
   }
@@ -227,14 +227,14 @@ function chart_zoom(dir: number): void {
 
 function chart_drawFrame(): void {
 
-  cnvWorker.postMessage({ 
+  cnvWorker.postMessage({
     msg: "draw",
     x: x, y: y, z: z,
     markers,
   });
 
   if (running) {
-    window.requestAnimationFrame(chart_drawFrame); 
+    window.requestAnimationFrame(chart_drawFrame);
   }
 
 }
