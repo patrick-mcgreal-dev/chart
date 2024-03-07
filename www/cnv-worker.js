@@ -40,8 +40,8 @@ function draw(data) {
 
   for (let marker of data.markers) {
 
-    const x = (marker[0] - data.x) * data.z;
-    const y = (marker[1] - data.y) * data.z;
+    const x = (marker.pos[0] - data.x) * data.z;
+    const y = (marker.pos[1] - data.y) * data.z;
 
     ctx.fillStyle = "blue";
 
@@ -52,14 +52,14 @@ function draw(data) {
 
     // label background
     ctx.fillRect(
-      x + marker[2][0], 
-      y + marker[2][1], 
-      marker[2][2],
-      marker[2][3]);
+      x + marker.pos[2][0], 
+      y + marker.pos[2][1], 
+      marker.pos[2][2],
+      marker.pos[2][3]);
 
     // label
     ctx.fillStyle = "white";
-    ctx.fillText("Label", 
+    ctx.fillText(marker.label, 
       x + labelXoffset + labelPadding, 
       y + (labelYoffset / 2) - labelPadding);
 

@@ -20,19 +20,19 @@ let v = 25;
 
 let running: boolean = false;
 
-const markers: Array<number[]> = [
-  [988, 709], // Hobbiton
-  [1196, 709], // Bree
-  [1703, 676], // Rivendell
-  [1689, 890], // Moria Gate
-  [1523, 1311], // Isengard
-  [1740, 1242], // Fangorn
-  [1656, 1479], // Helm's Deep
-  [1823, 1054], // Lorien
-  [2294, 451], // Erebor: The Lonely Mountain
-  [2225, 1709], // Minas Tirith
-  [2552, 1626], // Barad Dur
-  [2184, 1529], // Dead Marshes
+const markers: Array<{ label: string, pos: number[] }> = [
+  { label: "Hobbiton", pos: [988, 709] },
+  { label: "Bree", pos: [1196, 709] },
+  { label: "Rivendell", pos: [1703, 676] },
+  { label: "Moria Gate", pos: [1689, 890] },
+  { label: "Isengard", pos: [1523, 1311] },
+  { label: "Fangorn", pos: [1740, 1242] },
+  { label: "Helm's Deep", pos: [1656, 1479] },
+  { label: "Lorien", pos: [1823, 1054] },
+  { label: "Erebor: The Lonely Mountain", pos: [2294, 451] },
+  { label: "Minas Tirith", pos: [2225, 1709] },
+  { label: "Barad-dûr", pos: [2552, 1626] },
+  { label: "Dead Marshes", pos: [2184, 1529] },
 ];
 
 (async () => {
@@ -91,7 +91,7 @@ function initMarkers(): Promise<void> {
 
     const mInit = (e) => {
       if (e.data.msg == "marker") {
-        markers[mIndex][2] = e.data.box;
+        markers[mIndex].pos[2] = e.data.box;
         mIndex++;
         if (mIndex == markers.length) {
           cnvWorker.removeEventListener("message", mInit);
@@ -105,7 +105,7 @@ function initMarkers(): Promise<void> {
     for (let marker of markers) {
       cnvWorker.postMessage({
         msg: "marker",
-        text: "Label",
+        text: marker.label,
       });
     }
 
@@ -221,11 +221,11 @@ function initControls(): void {
     fn: (e: Event): void => {
       const relCoords = chart_getRelativeCoords((<MouseEvent>e).clientX, (<MouseEvent>e).clientY);
       if (marking) {
-        markers.push(relCoords);
+        markers.push({ label: "", pos: relCoords });
         console.log(`[${relCoords[0]}, ${relCoords[1]}],`);
         cnvWorker.postMessage({
           msg: "marker",
-          text: "Label",
+          text: "label",
         });
       } else {
         if (marker) {
@@ -237,7 +237,7 @@ function initControls(): void {
 
   cnvWorker.onmessage = (e) => {
     if (e.data.msg == "marker") {
-      markers[markers.length - 1][2] = e.data.box;
+      markers[markers.length - 1].pos[2] = e.data.box;
     }
   }
 
@@ -316,11 +316,11 @@ function chart_getRelativeCoords(windX: number, windY: number): [number, number]
 function chart_markerHit(relX: number, relY: number): number {
   // TODO: some vertical weirdness here
   for (let m = 0; m < markers.length; m++) {
-    const marker = markers[m];
-    if (relX < marker[0] + marker[2][0]) continue;
-    if (relX > marker[0] + (marker[2][0] + marker[2][2] / z)) continue;
-    if (relY < marker[1] + (marker[2][1] / z)) continue;
-    if (relY > marker[1] + marker[2][1] + marker[2][3]) continue;
+    const mPos = markers[m].pos;
+    if (relX < mPos[0] + mPos[2][0]) continue;
+    if (relX > mPos[0] + (mPos[2][0] + mPos[2][2] / z)) continue;
+    if (relY < mPos[1] + (mPos[2][1] / z)) continue;
+    if (relY > mPos[1] + mPos[2][1] + mPos[2][3]) continue;
     return m;
   }
   return -1;
