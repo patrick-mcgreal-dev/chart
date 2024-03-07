@@ -1,5 +1,5 @@
 const chSize = 20;
-const fontSize = 30;
+const fontSize = 28;
 
 const labelPadding = 6;
 const labelXoffset = 6;
@@ -13,7 +13,7 @@ function init(data) {
   ctx = data.offscreenCnv.getContext("2d");
   ctx.strokeStyle = "red";
   ctx.lineWidth = 3;
-  ctx.font = `bold ${fontSize}px monospace`;
+  ctx.font = `${fontSize}px monospace`;
   ctx.textBaseline = "middle";
 
   ctxW = data.offscreenCnv.width;
