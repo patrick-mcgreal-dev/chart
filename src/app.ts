@@ -21,7 +21,7 @@ let v = 25;
 let running: boolean = false;
 
 const markers: Array<number[]> = [
-  [ 2293, 436 ],
+
 ];
 
 (async () => {
@@ -73,6 +73,8 @@ function initCanvas(): void {
 function initMarkers(): Promise<void> {
 
   return new Promise((res, rej) => {
+
+    if (!markers.length) res();
 
     let mIndex = 0;
 
@@ -209,7 +211,7 @@ function initControls(): void {
       const relCoords = chart_getRelativeCoords((<MouseEvent>e).clientX, (<MouseEvent>e).clientY);
       if (marking) {
         markers.push(relCoords);
-        console.log(`[${relCoords[0]}, ${relCoords[1]}]`);
+        console.log(`[${relCoords[0]}, ${relCoords[1]}],`);
         cnvWorker.postMessage({
           msg: "marker",
           text: "Label",
