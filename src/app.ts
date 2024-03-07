@@ -117,7 +117,7 @@ function initControls(): void {
 
   let dragging = false;
   let marking = false;
-  let marker = false;
+  let markerIndex = -1;
 
   cr = ControlRouter.get();
 
@@ -175,12 +175,10 @@ function initControls(): void {
         );
       } else {
         const relCoords = chart_getRelativeCoords((<MouseEvent>e).clientX, (<MouseEvent>e).clientY);
-        const mIndex = chart_markerHit(relCoords[0], relCoords[1]);
-        if (mIndex > -1) {
-          marker = true;
+        markerIndex = chart_markerHit(relCoords[0], relCoords[1]);
+        if (markerIndex > -1) {
           cnv.style.cursor = "pointer";
         } else {
-          marker = false;
           cnv.style.cursor = "default";
         }
       }
@@ -228,8 +226,8 @@ function initControls(): void {
           text: "label",
         });
       } else {
-        if (marker) {
-          console.log("marker");
+        if (markerIndex > -1) {
+          console.log(markerIndex);
         }
       }
     }
