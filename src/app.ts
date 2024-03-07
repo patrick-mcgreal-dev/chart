@@ -66,6 +66,9 @@ function initCanvas(): void {
 
 function initControls(): void {
 
+  let drag = false;
+  let mark = false;
+
   cr = ControlRouter.get();
 
   const metaControls = {
@@ -87,6 +90,8 @@ function initControls(): void {
     "*Space ArrowRight": () => { chart_move(v*4, 0) },
     "*MetaLeft ArrowUp": () => { chart_zoom(1) },
     "*MetaLeft ArrowDown": () => { chart_zoom(-1) },
+    "MetaLeft": () => { mark = true },
+    "-*MetaLeft": () => { mark = false },
 
   };
 
@@ -100,8 +105,6 @@ function initControls(): void {
   });
 
   cr.setControlMap("menu");
-
-  let drag = false;
 
   chartEvents.push({
     element: cnv,
@@ -149,9 +152,10 @@ function initControls(): void {
     element: cnv,
     listener: "click",
     fn: function (e: Event): void {
+      if (!mark) return;
       markers.push([
-        Math.round(((<MouseEvent>e).clientX - cnvRect.left) * window.devicePixelRatio), 
-        Math.round(((<MouseEvent>e).clientY - cnvRect.top) * window.devicePixelRatio),
+        Math.round(((<MouseEvent>e).clientX - cnvRect.left) * window.devicePixelRatio + x), 
+        Math.round(((<MouseEvent>e).clientY - cnvRect.top) * window.devicePixelRatio + y),
       ]);
     }
   });
