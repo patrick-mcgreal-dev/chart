@@ -224,14 +224,22 @@ function chart_deactivate(): void {
 function chart_move(xv: number, yv: number): void {
   x += xv;
   if (x < 0) {
-    x = 0;
+    if (assets.map.width * z < cnv.width) {
+      x = -(((cnv.width - (assets.map.width * z)) / 2) / z);
+    } else {
+      x = 0;
+    }
   }
   else if (x > assets.map.width - (cnv.width / z)) {
     x = assets.map.width - (cnv.width / z);
   }
   y += yv;
   if (y < 0) {
-    y = 0;
+    if (assets.map.height * z < cnv.height) {
+      y = -(((cnv.height - (assets.map.height * z)) / 2) / z);
+    } else {
+      y = 0;
+    }
   } else if (y > assets.map.height - (cnv.height / z)) {
     y = assets.map.height - (cnv.height / z);
   }
@@ -241,10 +249,10 @@ function chart_zoom(dir: number): void {
   let lastZ = z;
   if (dir > 0) {
     if (z == 3) return;
-    z++;
+    z = z + .1 > 3 ? 3 : z + .1;
   } else {
-    if (z == 1) return;
-    z--;
+    if (z == .1) return;
+    z = z - .1 < .1 ? .1 : z - .1;
   }
   x += ((cnv.width - (cnv.width / z)) / 2) - ((cnv.width - (cnv.width / lastZ)) / 2);
   y += ((cnv.height - (cnv.height / z)) / 2) - ((cnv.height - (cnv.height / lastZ)) / 2);

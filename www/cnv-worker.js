@@ -27,6 +27,9 @@ function init(data) {
 
 function draw(data) {
 
+  ctx.fillStyle = "white";
+  ctx.fillRect(0, 0, ctxW, ctxH);
+
   ctx.drawImage(assets.map, 
     data.x, data.y,
     ctxW / data.z, ctxH / data.z, 
