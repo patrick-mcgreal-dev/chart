@@ -175,12 +175,13 @@ function initControls(): void {
           text: "Label",
         });
       } else {
-        console.log("click: ", relX, relY);
         for (let marker of markers) {
-          if (marker[0] == relX && marker[1] == relY) {
-            console.log("hit");
-            break;
-          }
+          if (relX < marker[0] + marker[2][0]) continue;
+          if (relX > marker[0] + marker[2][0] + marker[2][2]) continue;
+          if (relY < marker[1] + marker[2][1]) continue;
+          if (relY > marker[1] + marker[2][1] + marker[2][3]) continue;
+          console.log("hit");
+          break;
         }
       }
     }
