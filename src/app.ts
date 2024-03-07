@@ -259,11 +259,12 @@ function chart_getRelativeCoords(windX: number, windY: number): [number, number]
 }
 
 function chart_markerHit(relX: number, relY: number): number {
+  // TODO: some vertical weirdness here
   for (let m = 0; m < markers.length; m++) {
     const marker = markers[m];
     if (relX < marker[0] + marker[2][0]) continue;
-    if (relX > marker[0] + marker[2][0] + marker[2][2]) continue;
-    if (relY < marker[1] + marker[2][1]) continue;
+    if (relX > marker[0] + (marker[2][0] + marker[2][2] / z)) continue;
+    if (relY < marker[1] + (marker[2][1] / z)) continue;
     if (relY > marker[1] + marker[2][1] + marker[2][3]) continue;
     return m;
   }

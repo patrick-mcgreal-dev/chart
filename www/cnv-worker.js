@@ -2,8 +2,8 @@ const chSize = 20;
 const fontSize = 30;
 
 const labelPadding = 6;
-const labelX = 6;
-const labelY = -(fontSize + labelPadding);
+const labelXoffset = 6;
+const labelYoffset = -(fontSize + labelPadding);
 
 let ctx, ctxW, ctxH, centerX, centerY;
 let assets;
@@ -62,8 +62,8 @@ function draw(data) {
     // label
     ctx.fillStyle = "white";
     ctx.fillText("Label", 
-      x + labelX + labelPadding, 
-      y + (labelY / 2) - labelPadding);
+      x + labelXoffset + labelPadding, 
+      y + (labelYoffset / 2) - labelPadding);
   }
 
 }
@@ -72,8 +72,8 @@ function marker(data) {
   postMessage({
     msg: "marker",
     box: [
-      labelX,
-      labelY - labelPadding * 2,
+      labelXoffset,
+      labelYoffset - (labelPadding * 2),
       Math.ceil(ctx.measureText(data.text).width + (labelPadding * 2)),
       fontSize + labelPadding * 2,
     ],
