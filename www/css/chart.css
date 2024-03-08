@@ -71,6 +71,6 @@
 
 #chart-detail > p {
   margin: 0;
-  padding: 12px;
+  padding: 0 12px 12px 12px;
   line-height: 1.2em;
 }
