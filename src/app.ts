@@ -115,10 +115,10 @@ function initControls(): void {
     "*Space ArrowDown": () => { chart_move(0, v * 4) },
     "*Space ArrowLeft": () => { chart_move(v * -4, 0) },
     "*Space ArrowRight": () => { chart_move(v * 4, 0) },
-    "*MetaLeft ArrowUp": () => { chart_zoom(1) },
-    "*MetaLeft ArrowDown": () => { chart_zoom(-1) },
-    "MetaLeft": () => { marking = true },
-    "-*MetaLeft": () => { marking = false },
+    "*ShiftLeft ArrowUp": () => { chart_zoom(1) },
+    "*ShiftLeft ArrowDown": () => { chart_zoom(-1) },
+    "ShiftLeft": () => { marking = true },
+    "-*ShiftLeft": () => { marking = false },
 
   };
 
