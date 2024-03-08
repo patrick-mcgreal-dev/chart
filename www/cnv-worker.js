@@ -32,7 +32,7 @@ function resize(w, h) {
 function draw(data) {
 
   // clear
-  ctx.fillStyle = "white";
+  ctx.fillStyle = "#eee";
   ctx.fillRect(0, 0, ctxW, ctxH);
 
   // map
