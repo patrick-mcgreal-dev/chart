@@ -4,19 +4,28 @@
 
 body {
   width: 100%;
-  max-width: 800px;
+  max-width: 734px;
   height: 100%;
-  margin: 0 auto;
+  margin: 32px auto;
   display: flex;
-  gap: 100px;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  background-color: #eee;
 }
 
 header {
-  border-bottom: 1px solid black;
   width: 100%;
+  padding-bottom: 3px;
+  border-bottom: 1px solid black;
+  margin-bottom: 36px;
+}
+
+header > h1 {
+  margin: 0;
+  font-size: 1.1em;
+  font-weight: 400;
+  letter-spacing: 0.065em;
 }
 
 .load {
