@@ -87,18 +87,6 @@ function draw(data) {
 
 }
 
-function marker(data) {
-  postMessage({
-    msg: "marker",
-    box: [
-      labelXoffset,
-      labelYoffset,
-      Math.ceil(ctx.measureText(data.text).width),
-      fontSize,
-    ],
-  });
-}
-
 onmessage = (evt) => {
   switch (evt.data.msg) {
     case "draw": draw(evt.data); break;

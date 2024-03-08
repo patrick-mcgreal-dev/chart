@@ -36,7 +36,7 @@ const markerDetail: Array<{ detail: string, img: string }> = Data.map(d => ({
 (async () => {
   await loadAssets();
   initCanvas();
-  await initMarkers();
+  // await initMarkers();
   initDetail();
   initControls();
   chart_activate();
@@ -77,38 +77,6 @@ function initCanvas(): void {
     offscreenCnv: offscreenCnv,
     assets: assets,
   }, [offscreenCnv]);
-
-}
-
-function initMarkers(): Promise<void> {
-
-  return new Promise((res, rej) => {
-
-    if (!markers.length) res();
-
-    let mIndex = 0;
-
-    const mInit = (e) => {
-      if (e.data.msg == "marker") {
-        markers[mIndex].pos[2] = e.data.box;
-        mIndex++;
-        if (mIndex == markers.length) {
-          cnvWorker.removeEventListener("message", mInit);
-          res();
-        }
-      }
-    }
-
-    cnvWorker.addEventListener("message", mInit);
-
-    for (let marker of markers) {
-      cnvWorker.postMessage({
-        msg: "marker",
-        text: marker.label,
-      });
-    }
-
-  });
 
 }
 
@@ -324,13 +292,9 @@ function chart_getRelativeCoords(windX: number, windY: number): [number, number]
 }
 
 function chart_markerHit(relX: number, relY: number): number {
-  // TODO: some vertical weirdness here
   for (let m = 0; m < markers.length; m++) {
-    const mPos = markers[m].pos;
-    if (relX < mPos[0] + mPos[2][0]) continue;
-    if (relX > mPos[0] + (mPos[2][0] + mPos[2][2] / z)) continue;
-    if (relY < mPos[1] + (mPos[2][1] / z)) continue;
-    if (relY > mPos[1] + mPos[2][1] + mPos[2][3]) continue;
+    if (Math.abs(markers[m].pos[0] - relX) > 15) continue;
+    if (Math.abs(markers[m].pos[1] - relY) > 15) continue;
     return m;
   }
   return -1;
