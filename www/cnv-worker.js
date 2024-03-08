@@ -12,7 +12,7 @@ function init(data) {
 
   ctx = data.offscreenCnv.getContext("2d");
   ctx.lineWidth = 3;
-  ctx.font = `${fontSize}px monospace`;
+  ctx.font = `bold ${fontSize}px monospace`;
   ctx.textBaseline = "middle";
 
   ctxW = data.offscreenCnv.width;
@@ -57,16 +57,13 @@ function draw(data) {
       ctx.beginPath();
       ctx.arc(x, y, 8, 0, 2 * Math.PI);
       ctx.fill();
-      
-      // label background
-      ctx.fillStyle = "blue";
-      ctx.fillRect(
-        x + marker.pos[2][0], 
-        y + marker.pos[2][1], 
-        marker.pos[2][2],
-        marker.pos[2][3]);
   
       // label
+      ctx.strokeStyle = "black";
+      ctx.strokeText(marker.label, 
+        x + labelXoffset + labelPadding, 
+        y + (labelYoffset / 2) - labelPadding);
+        
       ctx.fillStyle = "white";
       ctx.fillText(marker.label, 
         x + labelXoffset + labelPadding, 
