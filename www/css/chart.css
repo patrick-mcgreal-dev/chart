@@ -3,7 +3,6 @@
 #chart {
   flex-grow: 1;
   position: relative;
-  width: 90%;
   aspect-ratio: 16/9;
   border-radius: 5px;
   border: 1px solid black;

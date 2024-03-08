@@ -10,18 +10,9 @@ body {
   background-color: #eee;
 }
 
-#header {
-  width: 100%;
-  padding-bottom: 3px;
-  border-bottom: 1px solid black;
-  margin-bottom: 36px;
-}
-
-#header > h1 {
-  margin: 0;
-  font-size: 1.1em;
-  font-weight: 400;
-  letter-spacing: 0.065em;
+#content {
+  width: 500px;
+  margin: 0 auto;
 }
 
 .load {
@@ -33,6 +24,30 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+h1 {
+  margin: 50px 0;
+  font-family: sans-serif;
+  font-weight: 300;
+  font-size: 1.3em;
+  color: grey;
+}
+
+h1 strong {
+  font-family: serif;
+  font-size: 2.1em;
+  font-weight: 400;
+  letter-spacing: 0.065em;
+  color: black;
+}
+
+h2 {
+  margin-top: 36px;
+  margin-bottom: 16px;
+  font-family: serif;
+  font-weight: 400;
+  font-size: 1.6em;
 }
 
 a {
