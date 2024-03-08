@@ -47,6 +47,12 @@ function draw(data) {
     const x = (marker.pos[0] - data.x) * data.z;
     const y = (marker.pos[1] - data.y) * data.z;
 
+    // if (x < data.x * data.z) {
+    //   console.log("skip");
+    //   continue;
+    // }
+    // if (x < data.y) continue;
+
     if (marker.label == "") {
 
       // point
