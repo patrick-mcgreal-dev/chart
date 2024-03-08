@@ -293,8 +293,8 @@ function chart_getRelativeCoords(windX: number, windY: number): [number, number]
 
 function chart_markerHit(relX: number, relY: number): number {
   for (let m = 0; m < markers.length; m++) {
-    if (Math.abs(markers[m].pos[0] - relX) > 15) continue;
-    if (Math.abs(markers[m].pos[1] - relY) > 15) continue;
+    if (Math.abs(markers[m].pos[0] - relX) * z > 15) continue;
+    if (Math.abs(markers[m].pos[1] - relY) * z > 15) continue;
     return m;
   }
   return -1;
