@@ -99,14 +99,7 @@ function initControls(): void {
 
   cr = ControlRouter.get();
 
-  const metaControls = {
-
-    "Enter": chart_activate,
-    "Escape": chart_deactivate,
-
-  };
-
-  const chartControls = {
+  cr.addControlMap("chart", {
 
     "ArrowUp": () => { chart_move(0, -v); return true; },
     "ArrowDown": () => { chart_move(0, v); return true; },
@@ -116,35 +109,8 @@ function initControls(): void {
     "*ShiftLeft ArrowDown": () => { chart_zoom(-1) },
     "ShiftLeft": () => { marking = true },
     "-*ShiftLeft": () => { marking = false },
-
-  };
-
-  cr.addControlMap("menu", {
-    ...metaControls,
+    
   });
-
-  cr.addControlMap("chart", {
-    ...metaControls,
-    ...chartControls,
-  });
-
-  cr.setControlMap("menu");
-
-  // chartEvents.push({
-  //   element: window,
-  //   listener: "resize",
-  //   fn: (e: Event): void => {
-  //     const w = cnv.parentElement!.clientWidth;
-  //     const h = cnv.parentElement!.clientHeight;
-  //     cnvRect = cnv.getBoundingClientRect();
-  //     cnv.style.width = `${w}px`;
-  //     cnv.style.height = `${h}px`;
-  //     cnvWorker.postMessage({
-  //       msg: "resize",
-  //       w: w * window.devicePixelRatio, h: h * window.devicePixelRatio,
-  //     })
-  //   }
-  // });
 
   chartEvents.push({
     element: cnv,
