@@ -151,6 +151,7 @@ function initControls(): void {
     listener: "mousedown",
     fn: (e: Event): void => {
       dragging = true;
+      detail.style.opacity = ".4";
       cnv.style.cursor = "move";
     }
   });
@@ -193,6 +194,7 @@ function initControls(): void {
     listener: "mouseup",
     fn: (e: Event): void => {
       dragging = false;
+      detail.style.opacity = "1";
       cnv.style.cursor = "default";
     }
   });
@@ -202,6 +204,7 @@ function initControls(): void {
     listener: "mouseleave",
     fn: (e: Event): void => {
       dragging = false;
+      detail.style.opacity = "1";
       marking = false;
       cnv.style.cursor = "default";
     }
