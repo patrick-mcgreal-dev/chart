@@ -217,7 +217,6 @@ function initControls(): void {
       const relCoords = chart_getRelativeCoords((<MouseEvent>e).clientX, (<MouseEvent>e).clientY);
       if (marking) {
         markers.push({ label: "", pos: relCoords });
-        // console.log(`[${relCoords[0]}, ${relCoords[1]}],`);
       } else {
         if (markerIndex > -1) {
           detail_show(markerIndex);
@@ -304,7 +303,6 @@ function chart_getRelativeCoords(windX: number, windY: number): [number, number]
 }
 
 function chart_markerHit(relX: number, relY: number): number {
-  // console.log(Math.abs(markers[0].pos[0] - relX) * z);
   for (let m = 0; m < markers.length; m++) {
     if (Math.abs(markers[m].pos[0] - relX) * z > 15) continue;
     if (Math.abs(markers[m].pos[1] - relY) * z > 15) continue;
