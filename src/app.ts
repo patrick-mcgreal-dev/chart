@@ -18,7 +18,7 @@ let detail: HTMLDivElement;
 
 let x = 0;
 let y = 0;
-let v = 25;
+let v = 100;
 
 const zMin = .3;
 const zMax = 2.5;
@@ -111,10 +111,6 @@ function initControls(): void {
     "ArrowDown": () => { chart_move(0, v) },
     "ArrowLeft": () => { chart_move(-v, 0) },
     "ArrowRight": () => { chart_move(v, 0) },
-    "*Space ArrowUp": () => { chart_move(0, v * -4) },
-    "*Space ArrowDown": () => { chart_move(0, v * 4) },
-    "*Space ArrowLeft": () => { chart_move(v * -4, 0) },
-    "*Space ArrowRight": () => { chart_move(v * 4, 0) },
     "*ShiftLeft ArrowUp": () => { chart_zoom(1) },
     "*ShiftLeft ArrowDown": () => { chart_zoom(-1) },
     "ShiftLeft": () => { marking = true },
