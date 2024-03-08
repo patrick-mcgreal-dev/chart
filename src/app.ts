@@ -36,7 +36,6 @@ const markerDetail: Array<{ detail: string, img: string }> = Data.map(d => ({
 (async () => {
   await loadAssets();
   initCanvas();
-  // await initMarkers();
   initDetail();
   initControls();
   chart_activate();
@@ -209,15 +208,12 @@ function initControls(): void {
     }
   });
 
-  cnvWorker.onmessage = (e) => {
-    if (e.data.msg == "marker") {
-      markers[markers.length - 1].pos[2] = e.data.box;
-    }
-  }
-
 }
 
 function chart_activate(): void {
+
+  (<HTMLDivElement>document.querySelector(".load")!).style.display = "none";
+  cnv.style.display = "block";
 
   cr.setControlMap("chart");
 
@@ -288,6 +284,7 @@ function chart_getRelativeCoords(windX: number, windY: number): [number, number]
 }
 
 function chart_markerHit(relX: number, relY: number): number {
+  // console.log(Math.abs(markers[0].pos[0] - relX) * z);
   for (let m = 0; m < markers.length; m++) {
     if (Math.abs(markers[m].pos[0] - relX) * z > 15) continue;
     if (Math.abs(markers[m].pos[1] - relY) * z > 15) continue;
