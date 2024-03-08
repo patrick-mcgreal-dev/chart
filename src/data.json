@@ -1,61 +1,61 @@
 [
   { 
-    "label": "Hobbiton", "pos": [988, 709],
+    "label": "Hobbiton", "pos": [988, 684],
     "img": "hobbiton",
     "detail": "Hobbiton is..."
    },
   { 
-    "label": "Bree", "pos": [1196, 709],
+    "label": "Bree", "pos": [1196, 684],
     "img": "bree",
     "detail": "Bree is..."
   },
   { 
-    "label": "Rivendell", "pos": [1703, 676],
+    "label": "Rivendell", "pos": [1703, 651],
     "img": "rivendell",
     "detail": "Rivendell is..."
   },
   { 
-    "label": "Moria Gate", "pos": [1689, 890],
+    "label": "Moria Gate", "pos": [1689, 865],
     "img": "moria-gate",
     "detail": "Moria Gate is..."
   },
   { 
-    "label": "Isengard", "pos": [1523, 1311],
+    "label": "Isengard", "pos": [1523, 1286],
     "img": "isengard",
     "detail": "Isengard is..."
   },
   { 
-    "label": "Fangorn", "pos": [1740, 1242],
+    "label": "Fangorn", "pos": [1740, 1217],
     "img": "fangorn",
     "detail": "Fangorn is..."
   },
   { 
-    "label": "Helm's Deep", "pos": [1656, 1479],
+    "label": "Helm's Deep", "pos": [1656, 1454],
     "img": "helms-deep",
     "detail": "Helm's Deep is..."
   },
   { 
-    "label": "Lorien", "pos": [1823, 1054],
+    "label": "Lorien", "pos": [1823, 1019],
     "img": "lorien",
     "detail": "Lorien is..."
   },
   { 
-    "label": "Erebor: The Lonely Mountain", "pos": [2294, 451],
+    "label": "Erebor: The Lonely Mountain", "pos": [2294, 426],
     "img": "erebor",
     "detail": "Erebor is..."
   },
   { 
-    "label": "Minas Tirith", "pos": [2225, 1709],
+    "label": "Minas Tirith", "pos": [2225, 1684],
     "img": "minas-tirith",
     "detail": "Minas Tirith is..."
   },
   { 
-    "label": "Barad-dûr", "pos": [2552, 1626],
+    "label": "Barad-dûr", "pos": [2552, 1601],
     "img": "barad-dur",
     "detail": "Barad-dûr is..."
   },
   { 
-    "label": "Dead Marshes", "pos": [2184, 1529],
+    "label": "Dead Marshes", "pos": [2184, 1504],
     "img": "dead-marshes",
     "detail": "The Dead Marshes are..."
   }
