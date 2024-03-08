@@ -4,7 +4,7 @@ import Data from "./data.json";
 const assets: { [key: string]: ImageBitmap } = {};
 
 const chartEvents: Array<{
-  element: HTMLElement,
+  element: HTMLElement | Window,
   listener: string,
   fn: (e: Event) => void,
 }> = [];
@@ -132,6 +132,22 @@ function initControls(): void {
   });
 
   cr.setControlMap("menu");
+
+  // chartEvents.push({
+  //   element: window,
+  //   listener: "resize",
+  //   fn: (e: Event): void => {
+  //     const w = cnv.parentElement!.clientWidth;
+  //     const h = cnv.parentElement!.clientHeight;
+  //     cnvRect = cnv.getBoundingClientRect();
+  //     cnv.style.width = `${w}px`;
+  //     cnv.style.height = `${h}px`;
+  //     cnvWorker.postMessage({
+  //       msg: "resize",
+  //       w: w * window.devicePixelRatio, h: h * window.devicePixelRatio,
+  //     })
+  //   }
+  // });
 
   chartEvents.push({
     element: cnv,

@@ -14,12 +14,18 @@ function init(data) {
   ctx.font = `bold ${fontSize}px monospace`;
   ctx.textBaseline = "top";
 
-  ctxW = data.offscreenCnv.width;
-  ctxH = data.offscreenCnv.height;
-  centerX = ctxW / 2;
-  centerY = ctxH / 2;
+  resize(data.offscreenCnv.width, data.offscreenCnv.height);
 
   assets = data.assets;
+
+}
+
+function resize(w, h) {
+
+  ctxW = w;
+  ctxH = h;
+  centerX = ctxW / 2;
+  centerY = ctxH / 2;
 
 }
 
@@ -87,6 +93,7 @@ function draw(data) {
 onmessage = (evt) => {
   switch (evt.data.msg) {
     case "draw": draw(evt.data); break;
+    case "resize": resize(evt.data.w, evt.data.h); break;
     case "init": init(evt.data); break;
   }
 };

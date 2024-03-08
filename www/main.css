@@ -1,4 +1,5 @@
 body {
+  width: 100%;
   max-width: 800px;
   height: 100%;
   margin: 0 auto;
@@ -17,8 +18,8 @@ header {
 #chart {
   flex-grow: 1;
   position: relative;
-  width: 600px;
-  height: 400px;
+  width: 90%;
+  aspect-ratio: 16/9;
   border-radius: 5px;
   border: 1px solid black;
 }
