@@ -107,10 +107,10 @@ function initControls(): void {
 
   const chartControls = {
 
-    "ArrowUp": () => { chart_move(0, -v) },
-    "ArrowDown": () => { chart_move(0, v) },
-    "ArrowLeft": () => { chart_move(-v, 0) },
-    "ArrowRight": () => { chart_move(v, 0) },
+    "ArrowUp": () => { chart_move(0, -v); return true; },
+    "ArrowDown": () => { chart_move(0, v); return true; },
+    "ArrowLeft": () => { chart_move(-v, 0); return true; },
+    "ArrowRight": () => { chart_move(v, 0); return true; },
     "*ShiftLeft ArrowUp": () => { chart_zoom(1) },
     "*ShiftLeft ArrowDown": () => { chart_zoom(-1) },
     "ShiftLeft": () => { marking = true },
