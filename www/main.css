@@ -42,6 +42,7 @@ canvas {
   position: relative;
   width: 100%;
   height: 125px;
+  border-radius: 5px 0 0 0;
 }
 
 #chart-detail > header > .x {
