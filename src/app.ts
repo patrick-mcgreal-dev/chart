@@ -217,8 +217,6 @@ function initControls(): void {
       } else {
         if (markerIndex > -1) {
           detail_show(markerIndex);
-        } else {
-          detail_hide();
         }
       }
     }
