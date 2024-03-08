@@ -201,10 +201,6 @@ function initControls(): void {
       if (marking) {
         markers.push({ label: "", pos: relCoords });
         // console.log(`[${relCoords[0]}, ${relCoords[1]}],`);
-        cnvWorker.postMessage({
-          msg: "marker",
-          text: "",
-        });
       } else {
         if (markerIndex > -1) {
           detail_show(markerIndex);

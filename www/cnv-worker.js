@@ -90,7 +90,6 @@ function draw(data) {
 onmessage = (evt) => {
   switch (evt.data.msg) {
     case "draw": draw(evt.data); break;
-    case "marker": marker(evt.data); break;
     case "init": init(evt.data); break;
   }
 };
