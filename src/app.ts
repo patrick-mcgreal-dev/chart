@@ -18,8 +18,11 @@ let detail: HTMLDivElement;
 
 let x = 0;
 let y = 0;
-let z = 1;
 let v = 25;
+
+const zMin = .3;
+const zMax = 2.5;
+let z = .6;
 
 let running: boolean = false;
 
@@ -240,6 +243,8 @@ function chart_activate(): void {
   }
 
   running = true;
+
+  chart_move(0, 0);
   window.requestAnimationFrame(chart_drawFrame);
 
 }
@@ -258,7 +263,7 @@ function chart_deactivate(): void {
 
 function chart_move(xv: number, yv: number): void {
   x += xv;
-  if (x < 0) {
+  if (x <= 0) {
     if (assets.map.width * z < cnv.width) {
       x = -(((cnv.width - (assets.map.width * z)) / 2) / z);
     } else {
@@ -283,11 +288,11 @@ function chart_move(xv: number, yv: number): void {
 function chart_zoom(dir: number): void {
   let lastZ = z;
   if (dir > 0) {
-    if (z == 3) return;
-    z = z + .1 > 3 ? 3 : z + .1;
+    if (z == zMax) return;
+    z = z + .1 > zMax ? zMax : z + .1;
   } else {
-    if (z == .8) return;
-    z = z - .1 < .8 ? .8 : z - .1;
+    if (z == zMin) return;
+    z = z - .1 < zMin ? zMin : z - .1;
   }
   x += ((cnv.width - (cnv.width / z)) / 2) - ((cnv.width - (cnv.width / lastZ)) / 2);
   y += ((cnv.height - (cnv.height / z)) / 2) - ((cnv.height - (cnv.height / lastZ)) / 2);

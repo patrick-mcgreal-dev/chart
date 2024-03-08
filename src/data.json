@@ -1,11 +1,11 @@
 [
   { 
-    "label": "Hobbiton", "pos": [988, 710],
+    "label": "Hobbiton", "pos": [1000, 730],
     "img": "hobbiton",
     "detail": "A village in the Shire."
    },
   { 
-    "label": "Bree", "pos": [1196, 684],
+    "label": "Bree", "pos": [1196, 664],
     "img": "bree",
     "detail": "A village in Bree-land."
   },
