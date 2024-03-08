@@ -7,6 +7,7 @@
   aspect-ratio: 16/9;
   border-radius: 5px;
   border: 1px solid black;
+  margin: 0 auto;
 }
 
 #chart canvas {
