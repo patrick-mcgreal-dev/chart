@@ -83,10 +83,7 @@ function initCanvas(): void {
 function initDetail(): void {
 
   detail = <HTMLDivElement>document.getElementById("chart-detail")!;
-
-  detail.querySelector(".x")!.addEventListener("click", (e) => {
-    detail.style.display = "none";
-  });
+  detail.querySelector(".x")!.addEventListener("click", detail_hide);
 
 }
 
@@ -220,6 +217,8 @@ function initControls(): void {
       } else {
         if (markerIndex > -1) {
           detail_show(markerIndex);
+        } else {
+          detail_hide();
         }
       }
     }
@@ -333,4 +332,8 @@ function detail_show(index: number): void {
 
   detail.style.display = "block";
 
+}
+
+function detail_hide(): void {
+  detail.style.display = "none";
 }
