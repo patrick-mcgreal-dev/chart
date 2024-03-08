@@ -180,6 +180,7 @@ function initControls(): void {
     element: cnv,
     listener: "wheel",
     fn: (e: Event): void => {
+      e.preventDefault();
       if ((<WheelEvent>e).deltaY > 1) {
         chart_zoom(-1);
       } else {
