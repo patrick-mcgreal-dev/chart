@@ -1,8 +1,8 @@
 const chSize = 20;
 const fontSize = 28;
 
-const labelXoffset = 12;
-const labelYoffset = -(fontSize + 40);
+const labelXoffset = 30;
+const labelYoffset = -15;
 
 let ctx, ctxW, ctxH, centerX, centerY;
 let assets;
@@ -51,22 +51,19 @@ function draw(data) {
 
     } else {
 
-      // point
-      ctx.fillStyle = "red";
-      ctx.beginPath();
-      ctx.arc(x, y, 8, 0, 2 * Math.PI);
-      ctx.fill();
+      // pin
+      ctx.drawImage(assets.pin, x - (assets.pin.width / 2), y - (assets.pin.height / 2));
   
       // label
       ctx.strokeStyle = "black";
       ctx.strokeText(marker.label, 
         x + labelXoffset, 
-        y + (labelYoffset / 2));
+        y + labelYoffset);
         
       ctx.fillStyle = "white";
       ctx.fillText(marker.label, 
         x + labelXoffset, 
-        y + (labelYoffset / 2));
+        y + labelYoffset);
 
     }
 

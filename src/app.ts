@@ -45,6 +45,7 @@ async function loadAssets(): Promise<void> {
 
   const assetPaths = [
     "map",
+    "pin",
   ];
 
   for (let path of assetPaths) {
