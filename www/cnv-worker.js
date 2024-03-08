@@ -49,11 +49,8 @@ function draw(data) {
 
     if (marker.label == "") {
 
-      // point
-      ctx.fillStyle = "lightgreen";
-      ctx.beginPath();
-      ctx.arc(x, y, 8, 0, 2 * Math.PI);
-      ctx.fill();
+      // pin
+      ctx.drawImage(assets.pinuser, x - (assets.pinuser.width / 2), y - (assets.pinuser.height / 2));
 
     } else {
 
