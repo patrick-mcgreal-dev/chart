@@ -202,6 +202,7 @@ function initControls(): void {
     listener: "mouseleave",
     fn: (e: Event): void => {
       dragging = false;
+      marking = false;
       cnv.style.cursor = "default";
     }
   });
