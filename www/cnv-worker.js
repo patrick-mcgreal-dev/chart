@@ -1,9 +1,8 @@
 const chSize = 20;
 const fontSize = 28;
 
-const labelPadding = 6;
-const labelXoffset = 6;
-const labelYoffset = -(fontSize + labelPadding);
+const labelXoffset = 12;
+const labelYoffset = -(fontSize + 40);
 
 let ctx, ctxW, ctxH, centerX, centerY;
 let assets;
@@ -13,7 +12,7 @@ function init(data) {
   ctx = data.offscreenCnv.getContext("2d");
   ctx.lineWidth = 3;
   ctx.font = `bold ${fontSize}px monospace`;
-  ctx.textBaseline = "middle";
+  ctx.textBaseline = "top";
 
   ctxW = data.offscreenCnv.width;
   ctxH = data.offscreenCnv.height;
@@ -61,13 +60,13 @@ function draw(data) {
       // label
       ctx.strokeStyle = "black";
       ctx.strokeText(marker.label, 
-        x + labelXoffset + labelPadding, 
-        y + (labelYoffset / 2) - labelPadding);
+        x + labelXoffset, 
+        y + (labelYoffset / 2));
         
       ctx.fillStyle = "white";
       ctx.fillText(marker.label, 
-        x + labelXoffset + labelPadding, 
-        y + (labelYoffset / 2) - labelPadding);
+        x + labelXoffset, 
+        y + (labelYoffset / 2));
 
     }
 
@@ -93,9 +92,9 @@ function marker(data) {
     msg: "marker",
     box: [
       labelXoffset,
-      labelYoffset - (labelPadding * 2),
-      Math.ceil(ctx.measureText(data.text).width + (labelPadding * 2)),
-      fontSize + labelPadding * 2,
+      labelYoffset,
+      Math.ceil(ctx.measureText(data.text).width),
+      fontSize,
     ],
   });
 }
