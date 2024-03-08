@@ -154,7 +154,6 @@ function initControls(): void {
     listener: "mousedown",
     fn: (e: Event): void => {
       dragging = true;
-      detail.style.opacity = ".4";
       cnv.style.cursor = "move";
     }
   });
@@ -164,6 +163,7 @@ function initControls(): void {
     listener: "mousemove",
     fn: (e: Event): void => {
       if (dragging) {
+        detail.style.opacity = ".4";
         chart_move(
           -(<MouseEvent>e).movementX * 1.5 / z,
           -(<MouseEvent>e).movementY * 1.5 / z
