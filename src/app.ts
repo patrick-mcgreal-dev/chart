@@ -58,8 +58,8 @@ async function loadAssets(): Promise<void> {
 function initCanvas(): void {
 
   cnv = document.querySelector("canvas")!;
-  const w = cnv.parentElement?.clientWidth!;
-  const h = cnv.parentElement?.clientHeight!;
+  const w = cnv.parentElement!.clientWidth;
+  const h = cnv.parentElement!.clientHeight;
 
   cnvRect = cnv.getBoundingClientRect();
 
