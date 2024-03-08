@@ -57,7 +57,7 @@ p {
 }
 
 li {
-  line-height: 1.5em;
+  line-height: 2em;
 }
 
 a {
@@ -70,6 +70,7 @@ a:hover {
 }
 
 code {
-  background-color: white;
   padding: 1px;
+  font-size: 0.9em;
+  background-color: white;
 }
