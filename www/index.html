@@ -33,11 +33,11 @@
     <p><i>Note: take a look at the <a href="">code repository</a> for more details.</i></p>
     <h2>App performance</h2>
     <p>Several technical decisions were made to maximise app performance:</p>
-    <ol>
+    <ul>
       <li>All draw operations take place in a web worker to free up the main UI thread.</li>
       <li>The <code>window.requestAnimationFrame</code> function is used to draw at the highest possible framerate.</li>
       <li>The map image is cropped before drawing to avoid drawing off-screen content.</li>
-    </ol>
+    </ul>
     <h2>Possible improvements</h2>
     <ul>
       <li>Off-screen markers are still being drawn: this should be easy to remedy</li>
