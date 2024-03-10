@@ -42,12 +42,12 @@ function draw(data) {
     0, 0, 
     ctxW, ctxH);
 
-  for (let marker of data.markers) {
+  for (let pin of data.pins) {
 
-    const x = (marker.pos[0] - data.x) * data.z;
-    const y = (marker.pos[1] - data.y) * data.z;
+    const x = (pin.pos[0] - data.x) * data.z;
+    const y = (pin.pos[1] - data.y) * data.z;
 
-    if (marker.label == "") {
+    if (pin.label == "") {
 
       // pin
       ctx.drawImage(assets.pinuser, x - (assets.pinuser.width / 2), y - (assets.pinuser.height / 2));
@@ -59,12 +59,12 @@ function draw(data) {
   
       // label
       ctx.strokeStyle = "black";
-      ctx.strokeText(marker.label, 
+      ctx.strokeText(pin.label, 
         x + labelXoffset, 
         y + labelYoffset);
         
       ctx.fillStyle = "white";
-      ctx.fillText(marker.label, 
+      ctx.fillText(pin.label, 
         x + labelXoffset, 
         y + labelYoffset);
 

@@ -26,12 +26,12 @@ let z = .6;
 
 let running: boolean = false;
 
-const markers: Array<{ label: string, pos: number[] }> = Data.map(d => ({ 
+const pins: Array<{ label: string, pos: number[] }> = Data.map(d => ({ 
   label: d.label, 
   pos: d.pos 
 }));
 
-const markerDetail: Array<{ detail: string, img: string }> = Data.map(d => ({
+const pinDetails: Array<{ detail: string, img: string }> = Data.map(d => ({
   detail: d.detail,
   img: d.img,
 }));
@@ -95,7 +95,7 @@ function initControls(): void {
 
   let dragging = false;
   let marking = false;
-  let markerIndex = -1;
+  let pinIndex = -1;
 
   cr = ControlRouter.get();
 
@@ -133,8 +133,8 @@ function initControls(): void {
         );
       } else {
         const relCoords = chart_getRelativeCoords((<MouseEvent>e).clientX, (<MouseEvent>e).clientY);
-        markerIndex = chart_markerHit(relCoords[0], relCoords[1]);
-        if (markerIndex > -1) {
+        pinIndex = chart_pinHit(relCoords[0], relCoords[1]);
+        if (pinIndex > -1) {
           cnv.style.cursor = "pointer";
         } else {
           cnv.style.cursor = "default";
@@ -183,10 +183,10 @@ function initControls(): void {
     fn: (e: Event): void => {
       const relCoords = chart_getRelativeCoords((<MouseEvent>e).clientX, (<MouseEvent>e).clientY);
       if (marking) {
-        markers.push({ label: "", pos: relCoords });
+        pins.push({ label: "", pos: relCoords });
       } else {
-        if (markerIndex > -1) {
-          detail_show(markerIndex);
+        if (pinIndex > -1) {
+          detail_show(pinIndex);
         }
       }
     }
@@ -269,10 +269,10 @@ function chart_getRelativeCoords(windX: number, windY: number): [number, number]
   ]
 }
 
-function chart_markerHit(relX: number, relY: number): number {
-  for (let m = 0; m < markers.length; m++) {
-    if (Math.abs(markers[m].pos[0] - relX) * z > 15) continue;
-    if (Math.abs(markers[m].pos[1] - relY) * z > 15) continue;
+function chart_pinHit(relX: number, relY: number): number {
+  for (let m = 0; m < pins.length; m++) {
+    if (Math.abs(pins[m].pos[0] - relX) * z > 15) continue;
+    if (Math.abs(pins[m].pos[1] - relY) * z > 15) continue;
     return m;
   }
   return -1;
@@ -283,7 +283,7 @@ function chart_drawFrame(): void {
   cnvWorker.postMessage({
     msg: "draw",
     x: x, y: y, z: z,
-    markers,
+    pins: pins,
   });
 
   if (running) {
@@ -294,10 +294,10 @@ function chart_drawFrame(): void {
 
 function detail_show(index: number): void {
 
-  (<HTMLImageElement>detail.querySelector(".image")!).src = `assets/${markerDetail[index].img}.png`;
+  (<HTMLImageElement>detail.querySelector(".image")!).src = `assets/${pinDetails[index].img}.png`;
 
-  detail.querySelector("h1")!.innerText = markers[index].label;
-  detail.querySelector("p")!.innerText = markerDetail[index].detail;
+  detail.querySelector("h1")!.innerText = pins[index].label;
+  detail.querySelector("p")!.innerText = pinDetails[index].detail;
 
   detail.style.display = "block";
 
