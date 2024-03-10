@@ -1,5 +1,5 @@
 import * as ControlRouter from "../src/control-router";
-import Data from "./data.json";
+import PinData from "./data.json";
 
 const assets: { [key: string]: ImageBitmap } = {};
 
@@ -24,28 +24,18 @@ const zMin = .3;
 const zMax = 2.5;
 let z = .6;
 
-let running: boolean = false;
-
-const pins: Array<{ 
+let pins: Array<{ 
   label: string, 
   pos: [number, number], 
   hitPos: [number, number],
-}> = Data.map(d => ({ 
-  label: d.label, 
-  pos: [ d.pos[0], d.pos[1] ],
-  hitPos: [d.pos[0], d.pos[1] - 50],
-}));
+}>;
 
-const pinDetails: Array<{ detail: string, img: string }> = Data.map(d => ({
-  detail: d.detail,
-  img: d.img,
-}));
+let pinDetails: Array<{ detail: string, img: string }>;
 
 (async () => {
   await assets_load();
   detail_init();
   chart_init();
-  controls_init();
   chart_activate();
 })();
 
@@ -71,7 +61,45 @@ function detail_init(): void {
 
 }
 
-function controls_init(): void {
+function chart_init(): void {
+
+  // canvas
+
+  cnv = document.querySelector("canvas")!;
+  const w = cnv.parentElement!.clientWidth;
+  const h = cnv.parentElement!.clientHeight;
+
+  cnvRect = cnv.getBoundingClientRect();
+
+  cnv.width = w * window.devicePixelRatio;
+  cnv.height = h * window.devicePixelRatio;
+  cnv.style.width = `${w}px`;
+  cnv.style.height = `${h}px`;
+
+  const offscreenCnv = cnv.transferControlToOffscreen();
+
+  cnvWorker = new Worker("cnv-worker.js");
+
+  cnvWorker.postMessage({
+    msg: "init",
+    offscreenCnv: offscreenCnv,
+    assets: assets,
+  }, [offscreenCnv]);
+
+  // pins
+
+  pins = PinData.map(d => ({ 
+    label: d.label, 
+    pos: [ d.pos[0], d.pos[1] ],
+    hitPos: [d.pos[0], d.pos[1] - assets.pin.height],
+  }));
+  
+  pinDetails = PinData.map(d => ({
+    detail: d.detail,
+    img: d.img,
+  }));
+
+  // controls
 
   let dragging = false;
   let marking = false;
@@ -163,7 +191,11 @@ function controls_init(): void {
     fn: (e: Event): void => {
       const relCoords = chart_getRelativeCoords((<MouseEvent>e).clientX, (<MouseEvent>e).clientY);
       if (marking) {
-        pins.push({ label: "", pos: relCoords });
+        pins.push({ 
+          label: "", 
+          pos: relCoords, 
+          hitPos: [relCoords[0], relCoords[1] - assets.pin.height],
+        });
       } else {
         if (pinIndex > -1) {
           detail_show(pinIndex);
@@ -171,31 +203,6 @@ function controls_init(): void {
       }
     }
   });
-
-}
-
-function chart_init(): void {
-
-  cnv = document.querySelector("canvas")!;
-  const w = cnv.parentElement!.clientWidth;
-  const h = cnv.parentElement!.clientHeight;
-
-  cnvRect = cnv.getBoundingClientRect();
-
-  cnv.width = w * window.devicePixelRatio;
-  cnv.height = h * window.devicePixelRatio;
-  cnv.style.width = `${w}px`;
-  cnv.style.height = `${h}px`;
-
-  const offscreenCnv = cnv.transferControlToOffscreen();
-
-  cnvWorker = new Worker("cnv-worker.js");
-
-  cnvWorker.postMessage({
-    msg: "init",
-    offscreenCnv: offscreenCnv,
-    assets: assets,
-  }, [offscreenCnv]);
 
 }
 
@@ -210,22 +217,8 @@ function chart_activate(): void {
     event.element.addEventListener(event.listener, event.fn);
   }
 
-  running = true;
-
   chart_move(0, 0);
   window.requestAnimationFrame(chart_drawFrame);
-
-}
-
-function chart_deactivate(): void {
-
-  cr.setControlMap("menu");
-
-  for (let event of chartEvents) {
-    event.element.removeEventListener(event.listener, event.fn);
-  }
-
-  running = false;
 
 }
 
@@ -291,9 +284,7 @@ function chart_drawFrame(): void {
     pins: pins,
   });
 
-  if (running) {
-    window.requestAnimationFrame(chart_drawFrame);
-  }
+  window.requestAnimationFrame(chart_drawFrame);
 
 }
 
