@@ -96,7 +96,7 @@ function chart_init(): void {
     default: true,
     label: d.label, 
     pos: [ d.pos[0], d.pos[1] ],
-    hitPos: [ d.pos[0], d.pos[1] - ((assets.pin.height / 2) * window.devicePixelRatio) ],
+    hitPos: [ d.pos[0], d.pos[1] - (assets.pin.height / z / 2) ],
     opacity: 1,
   }));
   
@@ -204,7 +204,7 @@ function chart_init(): void {
           default: false,
           label: `Location ${pins.filter(p => !p.default).length + 1}`, 
           pos: relCoords, 
-          hitPos: [relCoords[0], relCoords[1] - assets.pin.height],
+          hitPos: [relCoords[0], relCoords[1] - (assets.pin.height / z / 2)],
           opacity: 1,
         });
         pinDetails.push({
@@ -295,6 +295,9 @@ function chart_zoom(dir: number): void {
   }
   x += ((cnv.width - (cnv.width / z)) / 2) - ((cnv.width - (cnv.width / lastZ)) / 2);
   y += ((cnv.height - (cnv.height / z)) / 2) - ((cnv.height - (cnv.height / lastZ)) / 2);
+  for (let pin of pins) {
+    pin.hitPos[1] = pin.pos[1] - (assets.pin.height / z / 2);
+  }
   chart_move(0, 0);
 }
 
