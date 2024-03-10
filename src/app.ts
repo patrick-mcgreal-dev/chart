@@ -195,6 +195,9 @@ function chart_init(): void {
     fn: (e: Event): void => {
       const relCoords = chart_getRelativeCoords((<MouseEvent>e).clientX, (<MouseEvent>e).clientY);
       if (marking) {
+        for (let pin of pins) {
+          pin.opacity = .6;
+        }
         pins.push({ 
           label: "", 
           pos: relCoords, 
@@ -333,5 +336,5 @@ function detail_hide(): void {
   for (let pin of pins) {
     pin.opacity = 1;
   }
-  
+
 }
