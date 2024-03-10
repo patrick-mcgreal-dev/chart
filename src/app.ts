@@ -301,10 +301,10 @@ function chart_zoom(dir: number): void {
   chart_move(0, 0);
 }
 
-function chart_getRelativeCoords(windX: number, windY: number): [number, number] {
+function chart_getRelativeCoords(x: number, y: number): [number, number] {
   return [
-    Math.round(((windX - cnvRect.left) * window.devicePixelRatio + (x * z)) / z),
-    Math.round(((windY - cnvRect.top) * window.devicePixelRatio + (y * z)) / z),
+    Math.round(((x - cnvRect.left) * window.devicePixelRatio + (x * z)) / z),
+    Math.round(((y - cnvRect.top) * window.devicePixelRatio + (y * z)) / z),
   ]
 }
 
