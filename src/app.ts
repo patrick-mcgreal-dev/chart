@@ -327,5 +327,11 @@ function detail_show(index: number): void {
 }
 
 function detail_hide(): void {
+
   detail.style.display = "none";
+
+  for (let pin of pins) {
+    pin.opacity = 1;
+  }
+  
 }

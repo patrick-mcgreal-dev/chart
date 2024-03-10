@@ -50,7 +50,9 @@ function draw(data) {
     if (pin.label == "") {
 
       // pin
+      ctx.globalAlpha = pin.opacity;
       ctx.drawImage(assets.pinuser, x - (assets.pinuser.width / 2), y - assets.pinuser.height);
+      ctx.globalAlpha = 1;
 
     } else {
 
