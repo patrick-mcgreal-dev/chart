@@ -202,11 +202,16 @@ function chart_init(): void {
         }
         pins.push({ 
           default: false,
-          label: `location ${pins.filter(p => !p.default).length + 1}`, 
+          label: `Location ${pins.filter(p => !p.default).length + 1}`, 
           pos: relCoords, 
           hitPos: [relCoords[0], relCoords[1] - assets.pin.height],
           opacity: 1,
         });
+        pinDetails.push({
+          detail: "",
+          img: "",
+        });
+        detail_show(pins.length - 1);
       } else {
         if (pinIndex > -1) {
           for (let pin of pins) {
