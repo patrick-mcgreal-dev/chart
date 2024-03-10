@@ -96,7 +96,7 @@ function chart_init(): void {
     default: true,
     label: d.label, 
     pos: [ d.pos[0], d.pos[1] ],
-    hitPos: [d.pos[0], d.pos[1] - assets.pin.height],
+    hitPos: [ d.pos[0], d.pos[1] - ((assets.pin.height / 2) * window.devicePixelRatio) ],
     opacity: 1,
   }));
   
@@ -195,11 +195,11 @@ function chart_init(): void {
     element: cnv,
     listener: "click",
     fn: (e: Event): void => {
-      const relCoords = chart_getRelativeCoords((<MouseEvent>e).clientX, (<MouseEvent>e).clientY);
       if (marking) {
         for (let pin of pins) {
           pin.opacity = .6;
         }
+        const relCoords = chart_getRelativeCoords((<MouseEvent>e).clientX, (<MouseEvent>e).clientY);
         pins.push({ 
           default: false,
           label: `Location ${pins.filter(p => !p.default).length + 1}`, 
@@ -306,10 +306,12 @@ function chart_getRelativeCoords(windX: number, windY: number): [number, number]
 }
 
 function chart_pinHit(relX: number, relY: number): number {
-  for (let m = 0; m < pins.length; m++) {
-    if (Math.abs(pins[m].hitPos[0] - relX) * z > pinRadius) continue;
-    if (Math.abs(pins[m].hitPos[1] - relY) * z > pinRadius) continue;
-    return m;
+  // console.log("mouse: ", relX, relY);
+  // console.log(pins[0].hitPos);
+  for (let p = 0; p < pins.length; p++) {
+    if (Math.abs(pins[p].hitPos[0] - relX) > pinRadius) continue;
+    if (Math.abs(pins[p].hitPos[1] - relY) > pinRadius) continue;
+    return p;
   }
   return -1;
 }
@@ -328,10 +330,23 @@ function chart_drawFrame(): void {
 
 function detail_show(index: number): void {
 
-  (<HTMLImageElement>detail.querySelector(".image")!).src = `assets/${pinDetails[index].img}.png`;
+  if (pins[index].default) {
 
-  detail.querySelector("h1")!.innerText = pins[index].label;
-  detail.querySelector("p")!.innerText = pinDetails[index].detail;
+    (<HTMLImageElement>detail.querySelector(".image")!).src = `assets/${pinDetails[index].img}.png`;
+
+    detail.querySelector("h1")!.innerText = pins[index].label;
+    detail.querySelector("p")!.innerText = pinDetails[index].detail;
+
+  } else {
+
+    (<HTMLImageElement>detail.querySelector(".image")!).src = `assets/map.png`;
+
+    // show editors
+
+    detail.querySelector("h1")!.innerText = pins[index].label;
+    detail.querySelector("p")!.innerText = pinDetails[index].detail;
+
+  }
 
   detail.style.display = "block";
 
