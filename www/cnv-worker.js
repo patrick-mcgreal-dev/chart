@@ -47,32 +47,32 @@ function draw(data) {
     const x = (pin.pos[0] - data.x) * data.z;
     const y = (pin.pos[1] - data.y) * data.z;
 
-    if (pin.label == "") {
+    if (pin.default) {
 
       // pin
       ctx.globalAlpha = pin.opacity;
-      ctx.drawImage(assets.pinuser, x - (assets.pinuser.width / 2), y - assets.pinuser.height);
+      ctx.drawImage(assets.pin, x - (assets.pin.width / 2), y - assets.pin.height);
       ctx.globalAlpha = 1;
 
     } else {
 
       // pin
       ctx.globalAlpha = pin.opacity;
-      ctx.drawImage(assets.pin, x - (assets.pin.width / 2), y - assets.pin.height);
+      ctx.drawImage(assets.pinuser, x - (assets.pinuser.width / 2), y - assets.pinuser.height);
       ctx.globalAlpha = 1;
-  
-      // label
-      ctx.strokeStyle = "black";
-      ctx.strokeText(pin.label, 
-        x + labelXoffset, 
-        y + labelYoffset);
-        
-      ctx.fillStyle = "white";
-      ctx.fillText(pin.label, 
-        x + labelXoffset, 
-        y + labelYoffset);
 
     }
+
+    // label
+    ctx.strokeStyle = "black";
+    ctx.strokeText(pin.label, 
+      x + labelXoffset, 
+      y + labelYoffset);
+      
+    ctx.fillStyle = "white";
+    ctx.fillText(pin.label, 
+      x + labelXoffset, 
+      y + labelYoffset);
 
   }
 

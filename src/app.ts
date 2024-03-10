@@ -27,6 +27,7 @@ let z = .6;
 const pinRadius = 15;
 
 let pins: Array<{ 
+  default: boolean,
   label: string, 
   pos: [number, number], 
   hitPos: [number, number],
@@ -92,6 +93,7 @@ function chart_init(): void {
   // pins
 
   pins = PinData.map(d => ({ 
+    default: true,
     label: d.label, 
     pos: [ d.pos[0], d.pos[1] ],
     hitPos: [d.pos[0], d.pos[1] - assets.pin.height],
@@ -199,7 +201,8 @@ function chart_init(): void {
           pin.opacity = .6;
         }
         pins.push({ 
-          label: "", 
+          default: false,
+          label: `location ${pins.filter(p => !p.default).length + 1}`, 
           pos: relCoords, 
           hitPos: [relCoords[0], relCoords[1] - assets.pin.height],
           opacity: 1,
