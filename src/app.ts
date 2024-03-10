@@ -24,6 +24,8 @@ const zMin = .3;
 const zMax = 2.5;
 let z = .6;
 
+const pinRadius = 15;
+
 let pins: Array<{ 
   label: string, 
   pos: [number, number], 
@@ -269,8 +271,8 @@ function chart_getRelativeCoords(windX: number, windY: number): [number, number]
 
 function chart_pinHit(relX: number, relY: number): number {
   for (let m = 0; m < pins.length; m++) {
-    if (Math.abs(pins[m].hitPos[0] - relX) * z > 15) continue;
-    if (Math.abs(pins[m].hitPos[1] - relY) * z > 15) continue;
+    if (Math.abs(pins[m].hitPos[0] - relX) * z > pinRadius) continue;
+    if (Math.abs(pins[m].hitPos[1] - relY) * z > pinRadius) continue;
     return m;
   }
   return -1;
