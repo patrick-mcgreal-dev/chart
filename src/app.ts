@@ -30,6 +30,7 @@ let pins: Array<{
   label: string, 
   pos: [number, number], 
   hitPos: [number, number],
+  opacity: number,
 }>;
 
 let pinDetails: Array<{ detail: string, img: string }>;
@@ -94,6 +95,7 @@ function chart_init(): void {
     label: d.label, 
     pos: [ d.pos[0], d.pos[1] ],
     hitPos: [d.pos[0], d.pos[1] - assets.pin.height],
+    opacity: 1,
   }));
   
   pinDetails = PinData.map(d => ({
@@ -197,9 +199,14 @@ function chart_init(): void {
           label: "", 
           pos: relCoords, 
           hitPos: [relCoords[0], relCoords[1] - assets.pin.height],
+          opacity: 1,
         });
       } else {
         if (pinIndex > -1) {
+          for (let pin of pins) {
+            pin.opacity = .6;
+          }
+          pins[pinIndex].opacity = 1;
           detail_show(pinIndex);
         }
       }
@@ -218,6 +225,24 @@ function chart_activate(): void {
   for (let event of chartEvents) {
     event.element.addEventListener(event.listener, event.fn);
   }
+
+  let pinFallDistance = 100;
+
+  for (let pin of pins) {
+    pin.pos[1] -= pinFallDistance;
+    pin.opacity = 0;
+  }
+
+  const pinFallInterval = window.setInterval(() => {
+    for (let pin of pins) {
+      pin.pos[1] += 2;
+      pin.opacity += .02;
+    }
+    pinFallDistance -= 2;
+    if (pinFallDistance == 0) {
+      window.clearInterval(pinFallInterval);
+    }
+  }, 1);
 
   chart_move(0, 0);
   window.requestAnimationFrame(chart_drawFrame);

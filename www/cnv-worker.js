@@ -55,7 +55,9 @@ function draw(data) {
     } else {
 
       // pin
+      ctx.globalAlpha = pin.opacity;
       ctx.drawImage(assets.pin, x - (assets.pin.width / 2), y - assets.pin.height);
+      ctx.globalAlpha = 1;
   
       // label
       ctx.strokeStyle = "black";

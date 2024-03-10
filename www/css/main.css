@@ -5,6 +5,7 @@
 body {
   width: 100%;
   max-width: 734px;
+  /* padding: 12px; */
   height: 100%;
   margin: 32px auto;
   background-color: #eee;
@@ -12,7 +13,7 @@ body {
 }
 
 #content {
-  width: 600px;
+  max-width: 600px;
   margin: 0 auto;
 }
 
