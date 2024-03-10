@@ -26,9 +26,14 @@ let z = .6;
 
 let running: boolean = false;
 
-const pins: Array<{ label: string, pos: number[] }> = Data.map(d => ({ 
+const pins: Array<{ 
+  label: string, 
+  pos: [number, number], 
+  hitPos: [number, number],
+}> = Data.map(d => ({ 
   label: d.label, 
-  pos: d.pos 
+  pos: [ d.pos[0], d.pos[1] ],
+  hitPos: [d.pos[0], d.pos[1] - 50],
 }));
 
 const pinDetails: Array<{ detail: string, img: string }> = Data.map(d => ({
@@ -37,14 +42,14 @@ const pinDetails: Array<{ detail: string, img: string }> = Data.map(d => ({
 }));
 
 (async () => {
-  await loadAssets();
-  initCanvas();
-  initDetail();
-  initControls();
+  await assets_load();
+  detail_init();
+  chart_init();
+  controls_init();
   chart_activate();
 })();
 
-async function loadAssets(): Promise<void> {
+async function assets_load(): Promise<void> {
 
   const assetPaths = [
     "map",
@@ -59,39 +64,14 @@ async function loadAssets(): Promise<void> {
 
 }
 
-function initCanvas(): void {
-
-  cnv = document.querySelector("canvas")!;
-  const w = cnv.parentElement!.clientWidth;
-  const h = cnv.parentElement!.clientHeight;
-
-  cnvRect = cnv.getBoundingClientRect();
-
-  cnv.width = w * window.devicePixelRatio;
-  cnv.height = h * window.devicePixelRatio;
-  cnv.style.width = `${w}px`;
-  cnv.style.height = `${h}px`;
-
-  const offscreenCnv = cnv.transferControlToOffscreen();
-
-  cnvWorker = new Worker("cnv-worker.js");
-
-  cnvWorker.postMessage({
-    msg: "init",
-    offscreenCnv: offscreenCnv,
-    assets: assets,
-  }, [offscreenCnv]);
-
-}
-
-function initDetail(): void {
+function detail_init(): void {
 
   detail = <HTMLDivElement>document.getElementById("chart-detail")!;
   detail.querySelector(".x")!.addEventListener("click", detail_hide);
 
 }
 
-function initControls(): void {
+function controls_init(): void {
 
   let dragging = false;
   let marking = false;
@@ -194,6 +174,31 @@ function initControls(): void {
 
 }
 
+function chart_init(): void {
+
+  cnv = document.querySelector("canvas")!;
+  const w = cnv.parentElement!.clientWidth;
+  const h = cnv.parentElement!.clientHeight;
+
+  cnvRect = cnv.getBoundingClientRect();
+
+  cnv.width = w * window.devicePixelRatio;
+  cnv.height = h * window.devicePixelRatio;
+  cnv.style.width = `${w}px`;
+  cnv.style.height = `${h}px`;
+
+  const offscreenCnv = cnv.transferControlToOffscreen();
+
+  cnvWorker = new Worker("cnv-worker.js");
+
+  cnvWorker.postMessage({
+    msg: "init",
+    offscreenCnv: offscreenCnv,
+    assets: assets,
+  }, [offscreenCnv]);
+
+}
+
 function chart_activate(): void {
 
   (<HTMLDivElement>document.querySelector(".load")!).style.display = "none";
@@ -271,8 +276,8 @@ function chart_getRelativeCoords(windX: number, windY: number): [number, number]
 
 function chart_pinHit(relX: number, relY: number): number {
   for (let m = 0; m < pins.length; m++) {
-    if (Math.abs(pins[m].pos[0] - relX) * z > 15) continue;
-    if (Math.abs(pins[m].pos[1] - relY) * z > 15) continue;
+    if (Math.abs(pins[m].hitPos[0] - relX) * z > 15) continue;
+    if (Math.abs(pins[m].hitPos[1] - relY) * z > 15) continue;
     return m;
   }
   return -1;

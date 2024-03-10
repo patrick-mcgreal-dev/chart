@@ -1,61 +1,61 @@
 [
   { 
-    "label": "Hobbiton", "pos": [1000, 730],
+    "label": "Hobbiton", "pos": [1000, 750],
     "img": "hobbiton",
     "detail": "A village in the Shire."
    },
   { 
-    "label": "Bree", "pos": [1196, 664],
+    "label": "Bree", "pos": [1196, 684],
     "img": "bree",
     "detail": "A village in Bree-land."
   },
   { 
-    "label": "Rivendell", "pos": [1703, 651],
+    "label": "Rivendell", "pos": [1703, 671],
     "img": "rivendell",
     "detail": "An elven outpost in the Misty Mountains."
   },
   { 
-    "label": "Moria Gate", "pos": [1689, 865],
+    "label": "Moria Gate", "pos": [1689, 885],
     "img": "moria-gate",
     "detail": "The original entrance to Moria, a.k.a. Khazad-dûm."
   },
   { 
-    "label": "Isengard", "pos": [1523, 1286],
+    "label": "Isengard", "pos": [1523, 1306],
     "img": "isengard",
     "detail": "The fortress of Saruman."
   },
   { 
-    "label": "Fangorn", "pos": [1740, 1217],
+    "label": "Fangorn", "pos": [1740, 1237],
     "img": "fangorn",
     "detail": "A dark woodland below the Misty Mountains"
   },
   { 
-    "label": "Helm's Deep", "pos": [1656, 1454],
+    "label": "Helm's Deep", "pos": [1656, 1474],
     "img": "helms-deep",
     "detail": "The location of the fortress known as the Hornburg."
   },
   { 
-    "label": "Lorien", "pos": [1823, 1019],
+    "label": "Lorien", "pos": [1823, 1039],
     "img": "lorien",
     "detail": "A forest, home to a kingdom of wood-elves."
   },
   { 
-    "label": "Erebor: The Lonely Mountain", "pos": [2294, 426],
+    "label": "Erebor: The Lonely Mountain", "pos": [2294, 446],
     "img": "erebor",
     "detail": "The former home of Smaug the dragon."
   },
   { 
-    "label": "Minas Tirith", "pos": [2225, 1684],
+    "label": "Minas Tirith", "pos": [2225, 1704],
     "img": "minas-tirith",
     "detail": "Home to the king of Gondor."
   },
   { 
-    "label": "Barad-dûr", "pos": [2552, 1601],
+    "label": "Barad-dûr", "pos": [2552, 1631],
     "img": "barad-dur",
     "detail": "Sauron's central stronghold in Mordor."
   },
   { 
-    "label": "Dead Marshes", "pos": [2184, 1504],
+    "label": "Dead Marshes", "pos": [2184, 1524],
     "img": "dead-marshes",
     "detail": "A network of stagnant pools and soft mires."
   }

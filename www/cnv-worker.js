@@ -1,8 +1,8 @@
 const chSize = 20;
 const fontSize = 28;
 
-const labelXoffset = 30;
-const labelYoffset = -15;
+const labelXoffset = 20;
+const labelYoffset = -20;
 
 let ctx, ctxW, ctxH, centerX, centerY;
 let assets;
@@ -50,12 +50,12 @@ function draw(data) {
     if (pin.label == "") {
 
       // pin
-      ctx.drawImage(assets.pinuser, x - (assets.pinuser.width / 2), y - (assets.pinuser.height / 2));
+      ctx.drawImage(assets.pinuser, x - (assets.pinuser.width / 2), y - assets.pinuser.height);
 
     } else {
 
       // pin
-      ctx.drawImage(assets.pin, x - (assets.pin.width / 2), y - (assets.pin.height / 2));
+      ctx.drawImage(assets.pin, x - (assets.pin.width / 2), y - assets.pin.height);
   
       // label
       ctx.strokeStyle = "black";
