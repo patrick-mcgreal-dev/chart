@@ -16,6 +16,7 @@ let cr: ControlRouter.API;
 
 let detail: HTMLDivElement;
 let detailEditable: HTMLDivElement;
+let editPinIndex = -1;
 
 let x = 0;
 let y = 0;
@@ -77,6 +78,10 @@ function detail_init(): void {
     for (let pin of pins) {
       pin.opacity = 1;
     }
+  });
+
+  detailEditable.querySelector("input")!.addEventListener("input", (e) => { 
+    pins[editPinIndex].label = (<HTMLInputElement>e.target!).value;
   });
 
 }
@@ -216,18 +221,7 @@ function chart_init(): void {
           pin.opacity = .6;
         }
         const relCoords = chart_getRelativeCoords((<MouseEvent>e).clientX, (<MouseEvent>e).clientY);
-        pins.push({ 
-          default: false,
-          label: `Location ${pins.filter(p => !p.default).length + 1}`, 
-          pos: relCoords, 
-          hitPos: [relCoords[0], relCoords[1] - (assets.pin.height / z / 2)],
-          opacity: 1,
-        });
-        pinDetails.push({
-          detail: "",
-          img: "",
-        });
-        detail_show(pins.length - 1);
+        chart_addPin(relCoords[0], relCoords[1]);
       } else {
         if (pinIndex > -1) {
           for (let pin of pins) {
@@ -253,7 +247,7 @@ function chart_activate(): void {
     event.element.addEventListener(event.listener, event.fn);
   }
 
-  let pinFallDistance = 100;
+  let pinFallDistance = 80;
 
   for (let pin of pins) {
     pin.pos[1] -= pinFallDistance;
@@ -335,6 +329,39 @@ function chart_pinHit(relX: number, relY: number): number {
   return -1;
 }
 
+function chart_addPin(relX: number, relY: number): void {
+
+  const pin: typeof pins[number] = {
+    default: false,
+    label: `Location ${pins.filter(p => !p.default).length + 1}`, 
+    pos: [relX, relY], 
+    hitPos: [relX, relY - (assets.pin.height / z / 2)],
+    opacity: 0,
+  }
+
+  pins.push(pin);
+
+  pinDetails.push({
+    detail: "",
+    img: "",
+  });
+  
+  let pinFallDistance = 80;
+  pin.pos[1] -= pinFallDistance;
+  
+  const pinFallInterval = window.setInterval(() => {
+    pin.pos[1] += 2;
+    pin.opacity += .02;
+    pinFallDistance -= 2;
+    if (pinFallDistance == 0) {
+      window.clearInterval(pinFallInterval);
+    }
+  }, 1);
+  
+  detail_show(pins.length - 1);
+
+}
+
 function chart_drawFrame(): void {
 
   cnvWorker.postMessage({
@@ -364,16 +391,14 @@ function detail_show(index: number): void {
 
     detail.style.display = "none";
 
+    editPinIndex = index;
+
     (<HTMLImageElement>detailEditable.querySelector(".image")!).src = "assets/imguser.png";
     
     detailEditable.style.display = "flex";
 
     const input = detailEditable.querySelector("input")!;
     input.value = pins[index].label;
-    input.addEventListener("input", (e) => {
-      pins[index].label = input.value;
-    });
-    input.select();
     input.focus();
 
   }
