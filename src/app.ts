@@ -15,6 +15,7 @@ let cnvWorker: Worker;
 let cr: ControlRouter.API;
 
 let detail: HTMLDivElement;
+let detailEditable: HTMLDivElement;
 
 let x = 0;
 let y = 0;
@@ -24,7 +25,7 @@ const zMin = .3;
 const zMax = 2.5;
 let z = .6;
 
-const pinRadius = 15;
+const pinRadius = 20;
 
 let pins: Array<{ 
   default: boolean,
@@ -60,8 +61,23 @@ async function assets_load(): Promise<void> {
 
 function detail_init(): void {
 
-  detail = <HTMLDivElement>document.getElementById("chart-detail")!;
-  detail.querySelector(".x")!.addEventListener("click", detail_hide);
+  detail = <HTMLDivElement>document.getElementsByClassName("chart-detail")[0]!;
+
+  detail.querySelector(".x")!.addEventListener("click", () => { 
+    detail.style.display = "none";
+    for (let pin of pins) {
+      pin.opacity = 1;
+    }
+   });
+
+  detailEditable = <HTMLDivElement>document.getElementsByClassName("chart-detail editable")[0]!;
+
+  detailEditable.querySelector(".x")!.addEventListener("click", () => {
+    detailEditable.style.display = "none";
+    for (let pin of pins) {
+      pin.opacity = 1;
+    }
+  });
 
 }
 
@@ -335,32 +351,35 @@ function detail_show(index: number): void {
 
   if (pins[index].default) {
 
+    detailEditable.style.display = "none";
+
     (<HTMLImageElement>detail.querySelector(".image")!).src = `assets/${pinDetails[index].img}.png`;
 
     detail.querySelector("h1")!.innerText = pins[index].label;
     detail.querySelector("p")!.innerText = pinDetails[index].detail;
 
+    detail.style.display = "flex";
+
   } else {
 
-    (<HTMLImageElement>detail.querySelector(".image")!).src = `assets/map.png`;
+    detail.style.display = "none";
 
-    // show editors
+    (<HTMLImageElement>detailEditable.querySelector(".image")!).src = `assets/map.png`;
+    
+    // detailEditable.querySelector("h1")!.innerText = pins[index].label;
+    // detailEditable.querySelector("p")!.innerText = pinDetails[index].detail;
+    
+    detailEditable.style.display = "flex";
 
-    detail.querySelector("h1")!.innerText = pins[index].label;
-    detail.querySelector("p")!.innerText = pinDetails[index].detail;
+    const input = detailEditable.querySelector("input")!;
+    input.value = pins[index].label;
+    input.addEventListener("input", (e) => {
+      pins[index].label = input.value;
+    });
+    input.select();
+    input.focus();
 
   }
 
-  detail.style.display = "block";
-
-}
-
-function detail_hide(): void {
-
-  detail.style.display = "none";
-
-  for (let pin of pins) {
-    pin.opacity = 1;
-  }
 
 }

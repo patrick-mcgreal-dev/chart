@@ -15,8 +15,9 @@
 
 /* ==================================== CHART-DETAIL */
 
-#chart-detail {
+.chart-detail {
   display: none;
+  flex-direction: column;
   font-family: sans-serif;
   position: absolute;
   top: 12px;
@@ -27,19 +28,19 @@
   font-size: 12px;
 }
 
-#chart-detail > header {
+.chart-detail > header {
   position: relative;
   display: flex;
 }
 
-#chart-detail > header > .image {
+.chart-detail > header > .image {
   position: relative;
   width: 100%;
   height: 125px;
   border-radius: 5px 5px 0 0;
 }
 
-#chart-detail > header > .x {
+.chart-detail > header > .x {
   position: absolute;
   top: 12px;
   right: 12px;
@@ -54,19 +55,39 @@
   background-color: white;
 }
 
-#chart-detail > header > .x:hover {
+.chart-detail > header > .x:hover {
   cursor: pointer;
 }
 
-#chart-detail > h1 {
+.chart-detail > h1,input {
   margin: 0;
   padding: 12px;
   font-size: 1.2rem;
   font-weight: 400;
 }
 
-#chart-detail > p {
+.chart-detail > p {
   margin: 0;
   padding: 0 12px 12px 12px;
   line-height: 1.2em;
+}
+
+.chart-detail input {
+  padding: 0;
+  width: 100%;
+  border: 0;
+  border-bottom: 1px solid grey;
+  color: grey;
+}
+
+.chart-detail input:focus {
+  outline: none;
+}
+
+.chart-detail input::selection {
+  background-color: grey;
+  color: white;
+}
+.chart-detail input::placeholder {
+  color: grey;
 }
