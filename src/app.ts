@@ -161,11 +161,12 @@ function chart_init(): void {
     listener: "mousemove",
     fn: (e: Event): void => {
       if (dragging) {
-        detail.style.opacity = ".4";
         chart_move(
           -(<MouseEvent>e).movementX * 1.5 / z,
           -(<MouseEvent>e).movementY * 1.5 / z
         );
+        detail.style.opacity = ".4";
+        detailEditable.style.opacity = ".4";
       } else {
         const relCoords = chart_getRelativeCoords((<MouseEvent>e).clientX, (<MouseEvent>e).clientY);
         pinIndex = chart_pinHit(relCoords[0], relCoords[1]);
@@ -197,6 +198,7 @@ function chart_init(): void {
     fn: (e: Event): void => {
       dragging = false;
       detail.style.opacity = "1";
+      detailEditable.style.opacity = "1";
       cnv.style.cursor = "default";
     }
   });
