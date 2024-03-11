@@ -40,6 +40,10 @@
   border-radius: 5px 5px 0 0;
 }
 
+.chart-detail.editable > header > .image {
+  filter: grayscale(1);
+}
+
 .chart-detail > header > .x {
   position: absolute;
   top: 12px;

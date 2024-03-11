@@ -364,10 +364,7 @@ function detail_show(index: number): void {
 
     detail.style.display = "none";
 
-    (<HTMLImageElement>detailEditable.querySelector(".image")!).src = `assets/map.png`;
-    
-    // detailEditable.querySelector("h1")!.innerText = pins[index].label;
-    // detailEditable.querySelector("p")!.innerText = pinDetails[index].detail;
+    (<HTMLImageElement>detailEditable.querySelector(".image")!).src = "assets/imguser.png";
     
     detailEditable.style.display = "flex";
 
