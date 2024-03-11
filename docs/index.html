@@ -4,17 +4,17 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Chart Demo</title>
-  <link rel="stylesheet" href="./www/css/main.css">
+  <link rel="stylesheet" href="css/main.css">
 </head>
 <body>
   <div id="chart">
     <div class="load">
-      <img src="./www/assets/load.svg" alt="">
+      <img src="assets/load.svg" alt="">
     </div>
     <canvas></canvas>
     <div class="chart-detail">
       <header>
-        <img class="x" src="./www/assets/x.svg" alt="">
+        <img class="x" src="assets/x.svg" alt="">
         <img class="image" src="" alt="">
       </header>
       <h1>Detail head</h1>
@@ -22,7 +22,7 @@
     </div>
     <div class="chart-detail editable">
       <header>
-        <img class="x" src="./www/assets/x.svg" alt="">
+        <img class="x" src="assets/x.svg" alt="">
         <img class="image" src="" alt="">
       </header>
       <h1><input type="text" maxlength="18"></h1>
@@ -55,6 +55,9 @@
       <li>Pin label overlapping: pin labels should switch sides when overlapping occurs.</li>
     </ul>
   </div>
-  <script src="./dist/app.js"></script>
+  <script src="app.js"></script>
+  <script>
+    new EventSource("/esbuild").addEventListener("change", () => location.reload())
+  </script>
 </body>
 </html>
