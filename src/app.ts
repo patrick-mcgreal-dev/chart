@@ -16,7 +16,6 @@ let cr: ControlRouter.API;
 
 let detail: HTMLDivElement;
 let detailEditable: HTMLDivElement;
-let editPinIndex = -1;
 
 let x = 0;
 let y = 0;
@@ -37,6 +36,7 @@ let pins: Array<{
 }>;
 
 let pinDetails: Array<{ detail: string, img: string }>;
+let editPinIndex = -1;
 
 (async () => {
   await assets_load();
@@ -319,8 +319,6 @@ function chart_getRelativeCoords(windowX: number, windowY: number): [number, num
 }
 
 function chart_pinHit(relX: number, relY: number): number {
-  // console.log("mouse: ", relX, relY);
-  // console.log(pins[0].hitPos);
   for (let p = 0; p < pins.length; p++) {
     if (Math.abs(pins[p].hitPos[0] - relX) > pinRadius) continue;
     if (Math.abs(pins[p].hitPos[1] - relY) > pinRadius) continue;
