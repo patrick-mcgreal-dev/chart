@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chart Demo</title>
+  <link rel="stylesheet" href="./www/css/main.css">
+</head>
+<body>
+  <div id="chart">
+    <div class="load">
+      <img src="./www/assets/load.svg" alt="">
+    </div>
+    <canvas></canvas>
+    <div class="chart-detail">
+      <header>
+        <img class="x" src="./www/assets/x.svg" alt="">
+        <img class="image" src="" alt="">
+      </header>
+      <h1>Detail head</h1>
+      <p>Detail body</p>
+    </div>
+    <div class="chart-detail editable">
+      <header>
+        <img class="x" src="./www/assets/x.svg" alt="">
+        <img class="image" src="" alt="">
+      </header>
+      <h1><input type="text" maxlength="18"></h1>
+    </div>
+  </div>
+  <div id="content">
+    <h1>
+      <strong>Middle Earth Navigator</strong><br/>
+      A chart demo for Navigraph
+    </h1>
+    <h2>Summary</h2>
+    <p>Click and drag or use the arrow keys to navigate around the chart. Zoom using the mouse wheel or <code>[shift] + [arrow up/down]</code>.</p>
+    <p>Clicking a location pin will display information about the place. Hold <code>[shift]</code> and click to place your own pins on the chart.</p>
+    <p>Thanks to <a href="https://tolkiengateway.net/wiki/Main_Page">Tolkien Gateway</a> for help with locating and describing places.</p>
+    <p><i>Note: take a look at the <a href="">code repository</a> for more details.</i></p>
+    <h2>App performance</h2>
+    <p>Several technical decisions were made to maximise app performance:</p>
+    <ul>
+      <li>All draw operations take place in a <a href="">web worker</a> to free up the main UI thread.</li>
+      <li>The <code>window.requestAnimationFrame</code> function is used to draw at the highest possible framerate.</li>
+      <li>The map image is cropped before drawing to avoid drawing off-screen content.</li>
+    </ul>
+    <h2>Controls</h2>
+    <p>Keyboard control routing is handled by the <a href="">control router</a> object.</p>
+    <p>This object makes it simple to switch between control states, such as context menus.</p>
+    <h2>Possible improvements</h2>
+    <ul>
+      <li>Zooming with a trackpad doesn't work nicely—ideally we want to be able to pinch and zoom.</li>
+      <li>Although the chart will load and operate at any size, it would be nice to support dynamic window resizing.</li>
+      <li>Pin label overlapping: pin labels should switch sides when overlapping occurs.</li>
+    </ul>
+  </div>
+  <script src="./dist/app.js"></script>
+</body>
+</html>
