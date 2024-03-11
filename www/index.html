@@ -41,10 +41,13 @@
     <h2>App performance</h2>
     <p>Several technical decisions were made to maximise app performance:</p>
     <ul>
-      <li>All draw operations take place in a web worker to free up the main UI thread.</li>
+      <li>All draw operations take place in a <a href="">web worker</a> to free up the main UI thread.</li>
       <li>The <code>window.requestAnimationFrame</code> function is used to draw at the highest possible framerate.</li>
       <li>The map image is cropped before drawing to avoid drawing off-screen content.</li>
     </ul>
+    <h2>Controls</h2>
+    <p>Keyboard control routing is handled by the <a href="">control router</a> object.</p>
+    <p>This object makes it simple to switch between control states, such as context menus.</p>
     <h2>Possible improvements</h2>
     <ul>
       <li>Zooming with a trackpad doesn't work nicely—ideally we want to be able to pinch and zoom.</li>
