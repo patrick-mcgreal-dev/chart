@@ -46,6 +46,11 @@ function draw(data) {
 
     const x = (pin.pos[0] - data.x) * data.z;
     const y = (pin.pos[1] - data.y) * data.z;
+    
+    if (x < 0) continue
+    if (x > ctxW) continue;
+    if (y < 0) continue;
+    if (y - assets.pinuser.height > ctxH) continue;
 
     if (pin.default) {
 
