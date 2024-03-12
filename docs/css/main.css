@@ -5,9 +5,10 @@
 body {
   width: 100%;
   max-width: 734px;
-  /* padding: 12px; */
   height: 100%;
   margin: 32px auto;
+  padding: 12px;
+  box-sizing: border-box;
   background-color: #eee;
   font-size: 1.1em;
 }

@@ -95,6 +95,7 @@ function chart_init(): void {
   const h = cnv.parentElement!.clientHeight;
 
   cnvRect = cnv.getBoundingClientRect();
+  console.log(document.body.style.padding);
 
   cnv.width = w * window.devicePixelRatio;
   cnv.height = h * window.devicePixelRatio;
